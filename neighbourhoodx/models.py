@@ -36,7 +36,7 @@ class Neighbourhood(models.Model):
 
     def __str__(self):
         """Unicode representation of Neighbourhood."""
-        pass
+        return str(self.name)
 
 class Member(models.Model):
     """Model definition for Member."""
@@ -55,20 +55,24 @@ class Member(models.Model):
 
     def __str__(self):
         """Unicode representation of Member."""
-        pass
+        return str(self.user.username)
 
 class Business(models.Model):
     """Model definition for Business."""
 
     # TODO: Define fields here
-    
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    description = models.TextField()
+    email = models.EmailField()
 
     class Meta:
         """Meta definition for Business."""
 
         verbose_name = 'Business'
-        verbose_name_plural = 'Businesss'
+        verbose_name_plural = 'Businesses'
 
     def __str__(self):
         """Unicode representation of Business."""
-        pass
+        return str(self.name)
