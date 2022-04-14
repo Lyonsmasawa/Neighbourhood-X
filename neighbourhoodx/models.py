@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from mapbox_location_field.models import LocationField  
+from mapbox_location_field.models import LocationField,  AddressAutoHiddenField
 
 # Create your models here.
 class Administrator(models.Model):
@@ -28,6 +28,7 @@ class Neighbourhood(models.Model):
     name = models.CharField(max_length=30)
     location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     occupants = models.IntegerField(default=1)
+    address = AddressAutoHiddenField() 
 
     class Meta:
         """Meta definition for Neighbourhood."""
@@ -47,6 +48,7 @@ class Member(models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     profile_photo = models.ImageField()
     home_location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
+    address = AddressAutoHiddenField() 
 
     class Meta:
         """Meta definition for Member."""
@@ -68,6 +70,7 @@ class Business(models.Model):
     location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     description = models.TextField()
     email = models.EmailField()
+    address = AddressAutoHiddenField() 
 
     class Meta:
         """Meta definition for Business."""
@@ -116,7 +119,8 @@ class SocialServices(models.Model):
     category = models.CharField(max_length=30, choices=SOCIAL_SERVICES)
     hotline = models.CharField(max_length = 13)
     location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
-
+    address = AddressAutoHiddenField() 
+    
     class Meta:
         """Meta definition for SocialServices."""
 

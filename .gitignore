@@ -1,3 +1,4 @@
 neighbourhood/settings.py
 *pyc
-.env 
+.env
+.vscode
