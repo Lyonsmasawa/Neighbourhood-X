@@ -36,7 +36,7 @@ class Neighbourhood(models.Model):
 
     def __str__(self):
         """Unicode representation of Neighbourhood."""
-        return str(self.name)
+        return self.name
 
 class Member(models.Model):
     """Model definition for Member."""
@@ -75,4 +75,23 @@ class Business(models.Model):
 
     def __str__(self):
         """Unicode representation of Business."""
-        return str(self.name)
+        return self.name
+
+class Post(models.Model):
+    """Model definition for Post."""
+
+    # TODO: Define fields here
+    poster = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    body = models.TextField()
+    posted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta definition for Post."""
+
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
+
+    def __str__(self):
+        """Unicode representation of Post."""
+        return self.body
