@@ -7,7 +7,7 @@ class Administrator(models.Model):
 
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(upload_to = 'images')
+    profile_photo = models.ImageField()
 
     class Meta:
         """Meta definition for Administrator."""
@@ -36,4 +36,39 @@ class Neighbourhood(models.Model):
 
     def __str__(self):
         """Unicode representation of Neighbourhood."""
+        pass
+
+class Member(models.Model):
+    """Model definition for Member."""
+
+    # TODO: Define fields here
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    profile_photo = models.ImageField()
+
+
+    class Meta:
+        """Meta definition for Member."""
+
+        verbose_name = 'Member'
+        verbose_name_plural = 'Members'
+
+    def __str__(self):
+        """Unicode representation of Member."""
+        pass
+
+class Business(models.Model):
+    """Model definition for Business."""
+
+    # TODO: Define fields here
+    
+
+    class Meta:
+        """Meta definition for Business."""
+
+        verbose_name = 'Business'
+        verbose_name_plural = 'Businesss'
+
+    def __str__(self):
+        """Unicode representation of Business."""
         pass
