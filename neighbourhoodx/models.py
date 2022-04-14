@@ -91,6 +91,7 @@ class Post(models.Model):
 
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+        ordering = ['-posted']
 
     def __str__(self):
         """Unicode representation of Post."""
