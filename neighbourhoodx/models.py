@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import CharField
 
 # Create your models here.
 class Administrator(models.Model):
@@ -96,3 +97,31 @@ class Post(models.Model):
     def __str__(self):
         """Unicode representation of Post."""
         return self.body
+
+SOCIAL_SERVICES = (
+    ('bank','Bank'),
+    ('fire','Fire Department'),
+    ('police','Police Department'),
+    ('hospital', 'HealthCare'),  
+    ('school','School'),  
+)
+
+class SocialServices(models.Model):
+    """Model definition for SocialServices."""
+
+    # TODO: Define fields here
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    name = models.CharField(max_length = 30)
+    category = models.CharField(max_length=30, choices=SOCIAL_SERVICES)
+    hotline = models.CharField(max_length = 13)
+    location = models.CharField(max_length = 30)
+
+    class Meta:
+        """Meta definition for SocialServices."""
+
+        verbose_name = 'SocialServices'
+        verbose_name_plural = 'SocialServiceses'
+
+    def __str__(self):
+        """Unicode representation of SocialServices."""
+        return self.name
