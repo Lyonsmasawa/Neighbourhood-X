@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import CharField
+from mapbox_location_field.models import LocationField  
 
 # Create your models here.
 class Administrator(models.Model):
@@ -26,7 +26,7 @@ class Neighbourhood(models.Model):
     # TODO: Define fields here
     admin = models.ForeignKey(Administrator, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    location = models.CharField(max_length=30)
+    location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     occupants = models.IntegerField(default=1)
 
     class Meta:
@@ -46,7 +46,7 @@ class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     profile_photo = models.ImageField()
-
+    home_location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
 
     class Meta:
         """Meta definition for Member."""
@@ -65,6 +65,7 @@ class Business(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
+    location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     description = models.TextField()
     email = models.EmailField()
 
@@ -114,7 +115,7 @@ class SocialServices(models.Model):
     name = models.CharField(max_length = 30)
     category = models.CharField(max_length=30, choices=SOCIAL_SERVICES)
     hotline = models.CharField(max_length = 13)
-    location = models.CharField(max_length = 30)
+    location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
 
     class Meta:
         """Meta definition for SocialServices."""
