@@ -456,7 +456,7 @@ def residentDashboard(request):
         posts = get_neighbourhood.post_set.all()
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
-        social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
+        businesses = Business.objects.filter(neighbourhood = get_neighbourhood)
 
         # folium map
         m = folium.Map(location=[n_lat, n_long], zoom_start=16)
@@ -480,13 +480,13 @@ def residentDashboard(request):
             fill_color='aqua'
             ).add_to(m)
 
-        if social_services != None:
-            for service in social_services:
-                s_long = service.location[0]
-                s_lat = service.location[1]
+        if businesses != None:
+            for business in businesses:
+                s_long = business.location[0]
+                s_lat = business.location[1]
 
                 folium.Marker([s_lat, s_long],
-                    popup=f'<strong>{service.name}</strong>',
+                    popup=f'<strong>{business.name}</strong>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(icon='cloud', color='red')
                     ).add_to(m),
@@ -575,7 +575,7 @@ def business(request):
                 business.owner = user
                 business.neighbourhood = get_neighbourhood
                 business.save()
-            return redirect(adminDashboard)
+            return redirect(residentDashboard)
 
         else:
             form = BusinessForm()
