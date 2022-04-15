@@ -43,6 +43,17 @@ class SocialServicesForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['neighbourhood']
 
+class PostForm(forms.ModelForm):
+    """Form definition for Post."""
+
+    class Meta:
+        """Meta definition for Postform."""
+
+        model = Post
+        fields = ['body']
+
+
+
 
 
 
