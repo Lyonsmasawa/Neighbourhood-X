@@ -32,7 +32,11 @@
 .p-txt{
     font-weight: 900;
     font-size: 2rem; 
+    background-color: rgba(255, 255, 255, 0.473);
+    color: rgb(0, 0, 0);
+    text-align: center;
 }
+
 .post-card{
     color: black;
     padding: 1.5%;
