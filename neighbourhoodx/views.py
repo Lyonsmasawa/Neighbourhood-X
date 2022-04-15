@@ -176,7 +176,7 @@ def addResident(request):
                 member = Member(user=resident_user, neighbourhood=get_neighbourhood, name=name)
                 member.save()
                 
-                #increase residents count
+                #increase the residents count
                 members = Member.objects.filter(neighbourhood = get_neighbourhood)
                 member_count = members.count()
                 get_neighbourhood = member_count + 1
