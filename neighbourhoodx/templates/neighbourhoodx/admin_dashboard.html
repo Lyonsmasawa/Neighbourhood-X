@@ -11,4 +11,9 @@
 <div class="container" style="width: 100%; height: 10vh;">
     {{map | safe}}
 </div>
+
+{% for post in posts %}
+    {{post.body}}
+{% endfor %}
+    
 {% endblock content %}

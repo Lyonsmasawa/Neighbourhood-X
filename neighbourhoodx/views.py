@@ -130,10 +130,12 @@ def adminDashboard(request):
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+        
     except:
         get_neighbourhood = None
 
     if get_neighbourhood != None:
+        posts = get_neighbourhood.post_set.all()
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
@@ -172,14 +174,14 @@ def adminDashboard(request):
                     ).add_to(m),
 
         else:
-            pass
+            posts = None
     
     else:
         return redirect(setUpNeighbourhood)
 
     m = m._repr_html_() #html representation
     
-    context = {'map': m, 'hood': get_neighbourhood}
+    context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
     return render(request, 'neighbourhoodx/admin_dashboard.html', context)
 
 @login_required(login_url='login')
