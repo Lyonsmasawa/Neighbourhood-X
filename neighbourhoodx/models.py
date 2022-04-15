@@ -17,6 +17,18 @@ class Administrator(models.Model):
         verbose_name = 'Administrator'
         verbose_name_plural = 'Administrators'
 
+    # resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.profile_photo.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.profile_photo.path)
+
+
     def __str__(self):
         """Unicode representation of Administrator."""
         return str(self.user.username)
@@ -61,12 +73,13 @@ class Member(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-        img = Image.open(self.avatar.path)
+        img = Image.open(self.profile_photo.path)
 
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
             img.thumbnail(new_img)
-            img.save(self.avatar.path)
+            img.save(self.profile_photo.path)
+
     def __str__(self):
         """Unicode representation of Member."""
         return str(self.user.username)
