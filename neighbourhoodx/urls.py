@@ -16,6 +16,7 @@ urlpatterns = [
     path('social-services/', views.socialServices, name="social-services"),
     path('post/', views.post, name="post"),
     path('adjust/', views.adjust, name="adjust"),
+    path('delete/<str:pk>/', views.delete, name="delete"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
