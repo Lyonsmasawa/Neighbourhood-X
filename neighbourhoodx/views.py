@@ -148,11 +148,16 @@ def adminDashboard(request):
             icon=folium.Icon(icon='home', color='blue')
             ).add_to(m)
 
+        
+
         folium.CircleMarker(
             [n_lat, n_long],
             tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
             popup='Join our neighbourhood', 
             radius = 300,
+            color='blue',
+            fill=True,
+            fill_color='aqua'
             ).add_to(m)
 
         if social_services != None:
