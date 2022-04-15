@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<div class="container">
+    <strong>{{request.user.username}}</strong>
+{{ form.media }}
+
+<div class="container">
+    <h1>Create Neighbourhood</h1>
+    <form action="" method="post">
+        {%csrf_token%}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-primary" value="Add>
+    </form>
+</div>
+
+
+{% endblock content %}

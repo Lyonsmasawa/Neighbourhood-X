@@ -142,8 +142,23 @@ def adminDashboard(request):
     context = {'map': m,}
     return render(request, 'neighbourhoodx/admin_dashboard.html', context)
 
+@login_required(login_url='login')
 def addResident(request):
+    user = request.user
 
-    context = {'map': m,}
-    return render(request, 'neighbourhoodx/admin_dashboard.html', context)
+    administrator = Administrator.objects.get(user = user)
+
+    try:
+        get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    except:
+        get_neighbourhood = None
+
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
+
+    else:
+        pass
+    
+    context = {}
+    return render(request, 'neighbourhoodx/add_resident.html', context)
 
