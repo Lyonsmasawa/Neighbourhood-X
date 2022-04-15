@@ -15,6 +15,32 @@ def home(request):
     context = {}
     return HttpResponse("works")
 
+
+def loginPage(request):
+    page = 'login'
+
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        username = request.POST.get("username").lower()
+        password = request.POST.get("password")
+        
+        user = authenticate(request, username = username, password = password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid username or Password')
+
+    context = {'page': page}
+    return render(request, 'neighbourhoodx/login_register.html', context) 
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
 def registerPage(request):
     if request.user.is_authenticated:
         logout(request)
@@ -89,28 +115,3 @@ def adminDashboard(request):
     
     context = {}
     return render(request, 'neighbourhoodx/admin_dashboard.html', context)
-
-def loginPage(request):
-    page = 'login'
-
-    if request.user.is_authenticated:
-        return redirect('home')
-
-    if request.method == 'POST':
-        username = request.POST.get("username").lower()
-        password = request.POST.get("password")
-        
-        user = authenticate(request, username = username, password = password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'Invalid username or Password')
-
-    context = {'page': page}
-    return render(request, 'neighbourhoodx/login_register.html', context) 
-
-def logoutUser(request):
-    logout(request)
-    return redirect('home')
