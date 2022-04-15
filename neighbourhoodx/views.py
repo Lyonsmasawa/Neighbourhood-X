@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 
 from .emails import send_welcome_resident, send_welcome_email
-from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm
+from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SocialServices, Member, Post, Business
 import folium
@@ -447,6 +447,7 @@ def deleteResident(request, pk):
 #END OF ADMIN SECTION
 
 ## RESIDENT SECTION
+@login_required(login_url='login')
 def residentDashboard(request):
     user = request.user
     resident = Member.objects.get(user = user)
@@ -502,6 +503,7 @@ def residentDashboard(request):
     context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
     return render(request, 'neighbourhoodx/resident_dashboard.html', context)
 
+@login_required(login_url='login')
 def viewOtherResidents(request):
     user = request.user
 
@@ -525,6 +527,7 @@ def viewOtherResidents(request):
     context = {'residents': residents}
     return render(request, 'neighbourhoodx/residents.html', context)
 
+@login_required(login_url='login')
 def residentPost(request):
     user = request.user
 
@@ -554,6 +557,7 @@ def residentPost(request):
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_post.html', context)
 
+@login_required(login_url='login')
 def business(request):
     user = request.user
 
@@ -583,6 +587,7 @@ def business(request):
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_business.html', context)
 
+@login_required(login_url='login')
 def profile(request, pk):
     user = request.user
 
@@ -591,8 +596,24 @@ def profile(request, pk):
     context = {'profile': profile}
     return render(request, 'neighbourhoodx/profile.html', context)
 
+@login_required(login_url='login')
 def editProfile(request, pk):
+    user = request.user
+    resident = Member.objects.get(user = user)
 
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateMemberForm(request.POST, request.FILES, instance=resident)
 
-    context = {'form': form}
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(profile), pk
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateMemberForm(instance=resident)
+
+    context = {'user_form': user_form, 'profile_form': profile_form, 'resident': resident,}
+
     return render(request, 'neighbourhoodx/edit_profile.html', context)

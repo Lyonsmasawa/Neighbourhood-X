@@ -2,40 +2,45 @@
 {% load bootstrap5 %}
 
 {% block content %}
-<main class="update-account layout">
-    <div class="container" id="wrapper">
-        <div class="layout__box__x">
-            <div class="layout__boxHeader">
-                <div class="layout__boxTitle">
-                    <a href="{{request.META.HTTP_REFERER}}">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                            viewBox="0 0 32 32">
-                            <title>arrow-left</title>
-                            <path
-                                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
-                            </path>
-                        </svg>
-                    </a>
-                    <h3>Edit your profile</h3>
+
+
+
+{{resident.user.username}}
+
+{% if user_form.errors %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <div id="form_errors">
+        {% for key, value in user_form.errors.items %}
+        <strong>{{ value }}</strong>
+        {% endfor %}
+    </div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+<div class="form-content">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="small mb-1">Username:</label>
+                    {{ user_form.username }}
+                    <label class="small mb-1">Email:</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="form-group">
+                    <a href="{% url 'password_change' %}">Change Password</a>
+                    <hr>
+                    <label class="small mb-1">Change Avatar:</label>
+                    {{ profile_form.avatar }}
                 </div>
             </div>
-            <div class="layout__body">
-                
-                {% if request.user.profile.profile_photo.url %}
-                <img src="{{request.user.profile.profile_photo.url}}" alt="" style="width: 10%;">
-                {% endif %}
-                    
-                <form class="form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    <div class="form__action">
-                        <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
-                        <button class="btn btn--main" type="submit">Update</button>
-                    </div>
-                </form>
-            </div>
         </div>
-    </div>
-    </div>
-</main>
+        <br><br>
+        <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+        <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+    </form>
+</div>
 {% endblock content %}
