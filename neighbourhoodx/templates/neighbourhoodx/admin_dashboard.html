@@ -56,7 +56,7 @@
 </div>
 
 <div class="container">
-    <br>
+    <p class="text-center p-1">{{hood.address}} -- {{hood.location}}</p>
     <p><strong>Resident Posts</strong></p>
     <div class="row">
         {% for post in posts %}
@@ -71,7 +71,7 @@
         </div>
         {% endfor %}
     </div>
-
 </div>
+<br>
 <!-- {{hood.occupants}} -->
 {% endblock content %}
