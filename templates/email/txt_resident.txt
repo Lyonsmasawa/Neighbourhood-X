@@ -7,4 +7,6 @@ Use the following credentials to log in to your account and immediately change y
 Username:{{username}}
 Password:{{password}}
 
+{{neighbourhood}} Administrator : {{administrator}}
+
 © Lyons Albert (lyonsmasawa@gmail.com)
