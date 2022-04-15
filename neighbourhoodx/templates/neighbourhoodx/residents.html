@@ -5,7 +5,7 @@
     
     {% for resident in residents %}
         <p>{{resident.user.username}}</p>
-        <a href="{% url 'delete-resident' %}">Delete</a>
+        <a href="{% url 'delete-resident' resident.id %}">Delete</a>
     {% endfor %}
         
 {% endblock content %}

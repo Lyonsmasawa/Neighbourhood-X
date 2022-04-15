@@ -336,3 +336,36 @@ def deleteNeighbourhood(request, pk):
     
     context = {'obj':get_neighbourhood}
     return render(request, 'neighbourhoodx/delete.html', context)
+
+@login_required(login_url='login')
+def deleteResident(request, pk):
+    user = request.user
+    get_resident = Member.objects.get(id = pk)
+    administrator = Administrator.objects.get(user = user)
+
+    try:
+        get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    except:
+        get_neighbourhood = None
+
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
+    
+    else:
+        if request.user != get_neighbourhood.admin.user:
+            return HttpResponse('This method is restricted')
+
+        if request.method == 'POST':
+            get_resident.delete()
+            
+            #increase the residents count
+            members = Member.objects.filter(neighbourhood = get_neighbourhood)
+            member_count = members.count()
+            get_neighbourhood.occupants = member_count - 1
+            get_neighbourhood.save() 
+            return redirect(viewResidents)
+
+         
+    
+    context = {'obj':get_resident}
+    return render(request, 'neighbourhoodx/delete_resident.html', context)
