@@ -524,3 +524,32 @@ def viewOtherResidents(request):
 
     context = {'residents': residents}
     return render(request, 'neighbourhoodx/residents.html', context)
+
+def residentPost(request):
+    user = request.user
+
+    try:
+        resident = Member.objects.get(user = user)
+    except:
+        raise Http404()
+
+    get_neighbourhood = resident.neighbourhood
+
+    if get_neighbourhood is None:
+        raise Http404()
+
+    else:
+        if request.method == 'POST':
+            form = PostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.neighbourhood = get_neighbourhood
+                post.poster = user
+                post.save()
+            return redirect(residentDashboard)
+
+        else:
+            form = PostForm()
+
+    context = {'form': form}
+    return render(request, 'neighbourhoodx/add_post.html', context)
