@@ -10,11 +10,12 @@ from django.contrib.auth.models import User
 from .emails import send_welcome_resident, send_welcome_email
 from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm
 from django.contrib.auth.decorators import login_required
-from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business, SocialServices
+from .models import Administrator, Neighbourhood, SocialServices, Member, Post, Business
 import folium
 
 # Create your views here.
 ## USER || ADMIN
+@login_required(login_url='login')
 def home(request):
     user = request.user
     administrator = Administrator.objects.get(user = user)
