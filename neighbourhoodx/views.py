@@ -219,8 +219,11 @@ def viewResidents(request):
     return render(request, 'neighbourhoodx/residents.html', context)
 
 def socialServices(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+    get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
-
+    
 
     context = {}
     return render(request, 'neighbourhoodx/social_services.html', context)

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
+from .models import Administrator, Neighbourhood, SocialServices, Member, Post, Business
 
 class CustomUserForm(UserCreationForm):
     class Meta:
@@ -32,6 +32,17 @@ class AddResidentForm(forms.Form):
     name = forms.CharField(label='Resident name', max_length=50)
     username = forms.CharField(label='Username', max_length=50)
     email = forms.EmailField()
+
+class SocialServicesForm(forms.ModelForm):
+    """Form definition for SocialServices."""
+
+    class Meta:
+        """Meta definition for SocialServicesform."""
+
+        model = SocialServices
+        fields = '__all__'
+        exclude = ['neighbourhood']
+
 
 
 
