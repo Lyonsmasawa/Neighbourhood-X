@@ -1,4 +1,6 @@
-from multiprocessing import context
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 import random
 import string
 from urllib import request
@@ -617,3 +619,8 @@ def editProfile(request, pk):
     context = {'user_form': user_form, 'profile_form': profile_form, 'resident': resident,}
 
     return render(request, 'neighbourhoodx/edit_profile.html', context)
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'users/change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('users-home')
