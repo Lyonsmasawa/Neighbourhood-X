@@ -10,7 +10,8 @@ urlpatterns = [
     path('admin-profile/', views.adminProfile, name="adminProfile"),
     path('set-up-neighbourhood/', views.setUpNeighbourhood, name="setUpNeighbourhood"),
     path('admin-dashboard/', views.adminDashboard, name="adminDashboard"),
-    path('add-resident/', views.addResident, name="add-resident")
+    path('add-resident/', views.addResident, name="add-resident"),
+    path('view-residents/', views.viewResidents, name="view-residents"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

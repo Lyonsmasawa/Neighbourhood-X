@@ -203,3 +203,11 @@ def addResident(request):
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_resident.html', context)
 
+def viewResidents(request):
+
+    get_neighbourhood = Neighbourhood.objects.get(admin = request.user)
+    
+    residents = Member.objects.filter(neighbourhood = get_neighbourhood)
+
+    context = {'residents': residents}
+    return render(request, 'neighbourhoodx/residents.html', context)
