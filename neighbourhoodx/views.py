@@ -18,7 +18,7 @@ import folium
 @login_required(login_url='login')
 def home(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+    administrator = Administrator.objects.filter(user = user)
     
     if administrator != None:
         return redirect(adminDashboard)
@@ -112,7 +112,7 @@ def adminProfile(request):
 @login_required(login_url='login')
 def setUpNeighbourhood(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+    administrator = Administrator.objects.filter(user = user)
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -140,7 +140,7 @@ def setUpNeighbourhood(request):
 @login_required(login_url='login')
 def adminDashboard(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+    administrator = Administrator.objects.filter(user = user)
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -216,15 +216,15 @@ def addResident(request):
         if request.method == 'POST':
             form = AddResidentForm(request.POST)
             if form.is_valid():
-                username = form.cleaned_data['username']
                 name = form.cleaned_data['name']
+                username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
 
                 #generates random password for the resident
                 password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
                 # creates user with the given details
-                resident_user = User.objects.create(username = username, email = email, password = password)
+                resident_user = User.objects.create_user(username = username, email = email, password = password)
 
                 #save as a member of the neighbourhood
                 member = Member(user=resident_user, neighbourhood=get_neighbourhood)
@@ -401,3 +401,7 @@ def deleteResident(request, pk):
 #END OF ADMIN SECTION
 
 ## RESIDENT SECTION
+def residentDashboard(request):
+
+    context = {}
+    return render(request, 'neighbourhoodx/resident_dashboard.html', context)

@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home, name='home'),
     path('login/', views.loginPage, name="login"),
+
+    ## admin
     path('register/', views.registerPage, name="register"),
     path('logout/', views.logoutUser, name="logout"),
     path('admin-profile/', views.adminProfile, name="adminProfile"),
@@ -18,6 +20,8 @@ urlpatterns = [
     path('adjust/', views.adjust, name="adjust"),
     path('delete/<str:pk>/', views.deleteNeighbourhood, name="delete-neighbourhood"),
     path('delete-resident/<str:pk>/', views.deleteResident, name="delete-resident"),
+    
+    ## resident
     path('resident-dashboard/', views.residentDashboard, name="residentDashboard"),
 ]
 

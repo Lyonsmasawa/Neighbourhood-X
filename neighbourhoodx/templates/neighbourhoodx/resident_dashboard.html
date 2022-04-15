@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<a href="">view residents</a>
+<a href="">add business</a>
+<a href="">Message</a>
+<a href="">profile</a>
+<a href="">Delete</a>
+<a href="{% url 'logout' %}">logout</a>
+<div class="container">
+    {{map | safe}}
+</div>
+
+{% for post in posts %}
+    {{post.body}}
+{% endfor %}
+    {{hood.occupants}}
+{% endblock content %}
