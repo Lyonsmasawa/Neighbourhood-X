@@ -272,9 +272,10 @@ def post(request):
         if request.method == 'POST':
             form = PostForm(request.POST)
             if form.is_valid():
-                service = form.save(commit=False)
-                service.neighbourhood = get_neighbourhood
-                service.save()
+                post = form.save(commit=False)
+                post.neighbourhood = get_neighbourhood
+                post.poster = user
+                post.save()
             return redirect(adminDashboard)
 
         else:
