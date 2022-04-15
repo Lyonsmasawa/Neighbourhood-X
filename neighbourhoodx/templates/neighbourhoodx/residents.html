@@ -4,7 +4,7 @@
 {% block content %}
     
     {% for resident in residents %}
-        {{resident.id}}
+        <p>{{resident.user.username}}</p>
     {% endfor %}
         
 {% endblock content %}
