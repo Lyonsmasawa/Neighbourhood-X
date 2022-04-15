@@ -14,11 +14,11 @@ from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post,
 import folium
 
 # Create your views here.
+## USER || ADMIN
 def home(request):
 
     context = {}
     return HttpResponse("works")
-
 
 def loginPage(request):
     page = 'login'
@@ -41,10 +41,14 @@ def loginPage(request):
     context = {'page': page}
     return render(request, 'neighbourhoodx/login_register.html', context) 
 
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
-    return redirect('home')
+    return redirect(loginPage)
 
+## END USER || ADMIN
+
+## ADMIN SECTION
 def registerPage(request):
     if request.user.is_authenticated:
         logout(request)
@@ -383,3 +387,7 @@ def deleteResident(request, pk):
     
     context = {'obj':get_resident}
     return render(request, 'neighbourhoodx/delete_resident.html', context)
+
+#END OF ADMIN SECTION
+
+## RESIDENT SECTION
