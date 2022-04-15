@@ -259,3 +259,26 @@ def socialServices(request):
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/social_services.html', context)
+
+def post(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+    get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
+
+    else:
+        if request.method == 'POST':
+            form = SocialServicesForm(request.POST)
+            if form.is_valid():
+                service = form.save(commit=False)
+                service.neighbourhood = get_neighbourhood
+                service.save()
+            return redirect(adminDashboard)
+
+        else:
+            form = SocialServicesForm()
+
+    context = {'form': form}
+    return render(request, 'neighbourhoodx/social_services.html', context)

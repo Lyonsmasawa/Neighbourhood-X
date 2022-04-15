@@ -14,6 +14,7 @@ urlpatterns = [
     path('add-resident/', views.addResident, name="add-resident"),
     path('view-residents/', views.viewResidents, name="view-residents"),
     path('social-services/', views.socialServices, name="social-services"),
+    path('post/', views.post, name="post"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
