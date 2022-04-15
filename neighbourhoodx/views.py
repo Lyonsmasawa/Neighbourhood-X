@@ -7,6 +7,8 @@ from .forms import CustomUserForm, AdministratorForm, NeighbourhoodForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
 
+import folium
+
 # Create your views here.
 def home(request):
 
