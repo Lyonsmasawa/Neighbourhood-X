@@ -332,7 +332,7 @@ def deleteNeighbourhood(request, pk):
 
         if request.method == 'POST':
             get_neighbourhood.delete()
-            return redirect('home')
+            return redirect(registerPage)
     
     context = {'obj':get_neighbourhood}
     return render(request, 'neighbourhoodx/delete.html', context)
