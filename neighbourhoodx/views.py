@@ -283,3 +283,31 @@ def post(request):
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_post.html', context)
+
+@login_required(login_url='login')
+def adjust(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+
+    try:
+        get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    except:
+        get_neighbourhood = None
+
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
+
+    else:
+        if request.method == 'POST':
+            form = NeighbourhoodForm(request.POST, instance = get_neighbourhood)
+            if form.is_valid():
+                neighbourhood = form.save(commit=False, instance = get_neighbourhood)
+                neighbourhood.admin = administrator
+                neighbourhood.save()
+            return redirect(adminDashboard)
+
+        else:
+            form = NeighbourhoodForm(instance = get_neighbourhood)
+
+    context = {'form': form}
+    return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
