@@ -86,7 +86,7 @@ def setUpNeighbourhood(request):
 def adminDashboard(request):
     
     context = {}
-    return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
+    return render(request, 'neighbourhoodx/admin_dashboard.html', context)
 
 def loginPage(request):
     page = 'login'
