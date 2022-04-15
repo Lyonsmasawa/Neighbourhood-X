@@ -167,7 +167,7 @@ def adminDashboard(request):
 
     m = m._repr_html_() #html representation
     
-    context = {'map': m,}
+    context = {'map': m, 'hood': get_neighbourhood}
     return render(request, 'neighbourhoodx/admin_dashboard.html', context)
 
 @login_required(login_url='login')
@@ -311,3 +311,28 @@ def adjust(request):
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
+
+
+@login_required(login_url='login')
+def deleteNeighbourhood(request, pk):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+
+    try:
+        get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    except:
+        get_neighbourhood = None
+
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
+    
+    else:
+        if request.user != get_neighbourhood.admin.user:
+            return HttpResponse('This method is restricted')
+
+        if request.method == 'POST':
+            get_neighbourhood.delete()
+            return redirect('home')
+    
+    context = {'obj':get_neighbourhood}
+    return render(request, 'neighbourhoodx/delete.html', context)

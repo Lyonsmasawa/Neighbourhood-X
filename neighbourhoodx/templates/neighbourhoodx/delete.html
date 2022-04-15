@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+{% block content %}
+<main class="delete-item layout">
+    <div class="container">
+        <div class="layout__box">
+            <div class="layout__boxHeader">
+                <div class="layout__boxTitle">
+                    <a href="{{request.META.HTTP_REFERER}}">
+                        <i class="fa fa-backward text-decoration-none" > Back</i>
+                        
+                    </a>
+
+                </div>
+            </div>
+            <div class="layout__body">
+                <form class="form" action="" method="post">
+                    {% csrf_token %}
+                    <div class="form__group">
+                        <strong>{{obj.name}}</strong>
+                        <p>{{obj.address}}</p>
+                        <p>are you sure you want delete "{{obj | upper}}"? </p>
+                    </div>
+
+                    <div class="for__group">
+                        <input class="btn btn--main" type="submit" value="Confirm" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
