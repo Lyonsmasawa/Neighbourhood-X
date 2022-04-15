@@ -7,3 +7,13 @@ class CustomUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+
+class AdministratorForm(forms.ModelForm):
+    """Form definition for Administrator."""
+
+    class Meta:
+        """Meta definition for Administratorform."""
+
+        model = Administrator
+        fields = '__all__'
+        exclude = ['user',]

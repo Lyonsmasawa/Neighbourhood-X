@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
-from .forms import CustomUserForm
+from .forms import CustomUserForm, AdministratorForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
 
@@ -23,12 +23,14 @@ def registerPage(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.email = user.email.lower()
+            user.first_name = user.first_name.lower()
+            user.last_name = user.last_name.lower()
             user.save()
 
-            Member.objects.create(user = user)
+            Administrator.objects.create(user = user)
 
             login(request, user) 
-            return redirect('home')
+            return redirect(setUpNeighbourhood)
 
         else:
             messages.error(request, 'please try again')
@@ -36,7 +38,14 @@ def registerPage(request):
         form = CustomUserForm()
 
     context = {'form': form}
-    return render(request, 'neighbourhoodx/login_register.html', context) 
+    return render(request, 'neighbourhoodx/login_register.html', context)
+
+@login_required(login_url='login')
+def setUpNeighbourhood(request):
+
+
+    context = {}
+    return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
 
 def loginPage(request):
     page = 'login'
