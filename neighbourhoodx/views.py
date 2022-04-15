@@ -1,5 +1,6 @@
 import random
 import string
+from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
@@ -216,3 +217,10 @@ def viewResidents(request):
 
     context = {'residents': residents}
     return render(request, 'neighbourhoodx/residents.html', context)
+
+def socialServices(request):
+
+
+
+    context = {}
+    return render(request, 'neighbourhoodx/social_services.html', context)
