@@ -42,12 +42,11 @@ def registerPage(request):
 
 @login_required(login_url='login')
 def adminProfile(request):
+    user = request.user
     if request.method == 'POST':
-        form = AdministratorForm(request.POST, request.FILES)
+        form = AdministratorForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            admin_profile = form.save(commit=False)
-            admin_profile.user = request.user
-            admin_profile.save()
+            form.save()
         return redirect(setUpNeighbourhood)
 
     else:
