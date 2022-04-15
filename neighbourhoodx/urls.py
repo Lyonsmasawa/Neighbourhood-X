@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -30,6 +31,11 @@ urlpatterns = [
     path('edit-profile/<str:pk>/', views.editProfile, name="edit-profile"),
     path('password-change/', views.ChangePasswordView.as_view(), name='password_change'),
     path('password-reset/', views.ResetPasswordView.as_view(), name='password_reset'),
+    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
+         name='password_reset_confirm'),   
+    # uidb64: The user’s id encoded in base 64.
+    # token: Password recovery token to check that the password is valid.
+
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
