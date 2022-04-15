@@ -17,3 +17,13 @@ class AdministratorForm(forms.ModelForm):
         model = Administrator
         fields = '__all__'
         exclude = ['user',]
+
+class NeighbourhoodForm(forms.ModelForm):
+    """Form definition for Neighbourhood."""
+
+    class Meta:
+        """Meta definition for Neighbourhoodform."""
+
+        model = Neighbourhood
+        fields = '__all__'
+        exclude = ['admin', 'occupants']
