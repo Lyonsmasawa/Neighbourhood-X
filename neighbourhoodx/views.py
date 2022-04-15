@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 
 from .emails import send_welcome_resident, send_welcome_email
-from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm
+from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, SocialServicesForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
 import folium
@@ -209,11 +209,15 @@ def viewResidents(request):
     administrator = Administrator.objects.get(user = user)
     get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
-    #basic option
-    # residents = Member.objects.filter(neighbourhood = get_neighbourhood)
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
 
-    #super option
-    residents = get_neighbourhood.member_set.all()
+    else:
+        #basic option
+        # residents = Member.objects.filter(neighbourhood = get_neighbourhood)
+
+        #super option
+        residents = get_neighbourhood.member_set.all()
 
     context = {'residents': residents}
     return render(request, 'neighbourhoodx/residents.html', context)
@@ -223,7 +227,20 @@ def socialServices(request):
     administrator = Administrator.objects.get(user = user)
     get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
-    
+    if get_neighbourhood is None:
+        return redirect(setUpNeighbourhood)
 
-    context = {}
+    else:
+        if request.method == 'POST':
+            form = SocialServicesForm(request.POST)
+            if form.is_valid():
+                service = form.save(commit=False)
+                service.neighbourhood = get_neighbourhood
+                service.save()
+            return redirect(adminDashboard)
+
+        else:
+            form = SocialServicesForm()
+
+    context = {'form': form}
     return render(request, 'neighbourhoodx/social_services.html', context)
