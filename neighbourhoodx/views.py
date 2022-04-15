@@ -124,8 +124,17 @@ def adminDashboard(request):
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
 
-        m = folium.Map(location=[n_lat, n_long], zoom_start=16)     
+        # folium map
+        m = folium.Map(location=[n_lat, n_long], zoom_start=16)
+
+        #location marker
+        folium.Marker([n_lat, n_long],
+            popup=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
+            tooltip='Click here for more', 
+            icon=folium.Icon(icon='home', color='blue')
+            ).add_to(m),
     
+      
     else:
         return redirect(setUpNeighbourhood)
 
