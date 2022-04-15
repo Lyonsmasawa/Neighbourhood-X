@@ -553,3 +553,10 @@ def residentPost(request):
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_post.html', context)
+
+def business(request):
+
+
+
+    context = {'form': form}
+    return render(request, 'neighbourhoodx/add_business.html', context)
