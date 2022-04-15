@@ -556,7 +556,7 @@ def residentPost(request):
 
 def business(request):
     user = request.user
-    
+
     try:
         resident = Member.objects.get(user = user)
     except:
@@ -571,9 +571,10 @@ def business(request):
         if request.method == 'POST':
             form = BusinessForm(request.POST)
             if form.is_valid():
-                service = form.save(commit=False)
-                service.neighbourhood = get_neighbourhood
-                service.save()
+                business = form.save(commit=False)
+                business.owner = user
+                business.neighbourhood = get_neighbourhood
+                business.save()
             return redirect(adminDashboard)
 
         else:
