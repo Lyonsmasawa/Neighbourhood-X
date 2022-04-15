@@ -204,10 +204,15 @@ def addResident(request):
     return render(request, 'neighbourhoodx/add_resident.html', context)
 
 def viewResidents(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+    get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
-    get_neighbourhood = Neighbourhood.objects.get(admin = request.user)
-    
-    residents = Member.objects.filter(neighbourhood = get_neighbourhood)
+    #basic option
+    # residents = Member.objects.filter(neighbourhood = get_neighbourhood)
+
+    #super option
+    residents = get_neighbourhood.member_set.all()
 
     context = {'residents': residents}
     return render(request, 'neighbourhoodx/residents.html', context)
