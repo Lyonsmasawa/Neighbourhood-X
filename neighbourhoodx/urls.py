@@ -27,7 +27,7 @@ urlpatterns = [
     path('resident-post/', views.residentPost, name="resident-post"),
     path('business/', views.business, name="business"),
     path('profile/<str:pk>/', views.profile, name="profile"),
-    path('edit-profile/<str:pk>/', views.editProfile, name="edit-profile"),
+    path('edit-profile/<str:pk>/', views.editProfile, name="edit-profile"), 
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
