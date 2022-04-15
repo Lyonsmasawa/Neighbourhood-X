@@ -590,3 +590,9 @@ def profile(request, pk):
 
     context = {'profile': profile}
     return render(request, 'neighbourhoodx/profile.html', context)
+
+def editProfile(request, pk):
+
+
+    context = {'form': form}
+    return render(request, 'neighbourhoodx/edit_profile.html', context)

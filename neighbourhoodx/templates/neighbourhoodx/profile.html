@@ -3,5 +3,5 @@
 
 {% block content %}
     {{profile.username}}
-    <a href="{% url 'edit-profile' %}">edit</a>
+    <a href="{% url 'edit-profile' profile.id %}">edit</a>
 {% endblock content %}
