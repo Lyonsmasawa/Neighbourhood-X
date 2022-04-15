@@ -52,6 +52,16 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['body']
 
+class BusinessForm(forms.ModelForm):
+    """Form definition for Business."""
+
+    class Meta:
+        """Meta definition for Businessform."""
+
+        model = Business
+        fields = '__all__'
+        exclude = ['neighbourhood', 'owner']
+
 
 
 
