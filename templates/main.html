@@ -22,11 +22,15 @@
     <title>Awwwards - Website Awards - Best Web Design Trends</title>
     <link rel="icon" href="https://assets.awwwards.com/assets/images/favicon.svg" type="image/svg+xml" />
 
+
     {% block style %}
     {% bootstrap_css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     {% endblock style %}
+    {% load mapbox_location_field_tags %}
+    {% location_field_includes %}
+    {% include_jquery %}
 
 </head>
 
