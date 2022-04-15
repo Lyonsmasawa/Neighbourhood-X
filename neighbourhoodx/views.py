@@ -1,7 +1,7 @@
 import random
 import string
 from urllib import request
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
@@ -16,9 +16,18 @@ import folium
 # Create your views here.
 ## USER || ADMIN
 def home(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+    
+    if administrator != None:
+        return redirect(adminDashboard)
 
-    context = {}
-    return HttpResponse("works")
+    else:
+        member = Member.objects.get(user = user)
+        if member != None:
+            return redirect(residentDashboard)
+        else:
+            return Http404
 
 def loginPage(request):
     page = 'login'
