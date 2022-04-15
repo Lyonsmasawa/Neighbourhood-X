@@ -582,3 +582,11 @@ def business(request):
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_business.html', context)
+
+def profile(request, pk):
+    user = request.user
+
+    profile = User.objects.get(id = user.id)
+
+    context = {'profile': profile}
+    return render(request, 'neighbourhoodx/profile.html', context)
