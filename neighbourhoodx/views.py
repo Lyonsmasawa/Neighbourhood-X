@@ -66,7 +66,7 @@ def registerPage(request):
                 send_welcome_email(name, email)
 
                 login(request, user) 
-                
+
             except:
                 login(request, user) 
             return redirect(adminProfile)
@@ -180,16 +180,16 @@ def addResident(request):
                 password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
                 # creates user with the given details
-                resident_user = User.objects.create_user(username, email, password)
+                resident_user = User.objects.create(username = username, email = email, password = password)
 
                 #save as a member of the neighbourhood
-                member = Member(user=resident_user, neighbourhood=get_neighbourhood, name=name)
+                member = Member(user=resident_user, neighbourhood=get_neighbourhood)
                 member.save()
                 
                 #increase the residents count
                 members = Member.objects.filter(neighbourhood = get_neighbourhood)
                 member_count = members.count()
-                get_neighbourhood = member_count + 1
+                get_neighbourhood.occupants = member_count + 1
                 get_neighbourhood.save()
                 
                 #send email to resident
