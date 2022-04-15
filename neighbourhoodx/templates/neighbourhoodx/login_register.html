@@ -1,0 +1,96 @@
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+
+{% if page == 'login' %}
+
+<div class="container " id="premiumz">
+    <div class="full_login" id="wrapper">
+        <div class="layout__box__x">
+            <div class="layout__boxHeader">
+                <div class="layout__boxTitle">
+                    <h3>Login</h3>
+                </div>
+            </div>
+            <div class="layout__body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form__group form__group">
+                        <label for="">Username:</label>
+                        <input type="text" name="username" id="" placeholder="Enter Username" required>
+                    </div>
+                    <div class="form__group form__group">
+                        <label for="">Password:</label>
+                        <input type="password" name="password" id="" placeholder="Enter password" required>
+                    </div>
+
+                    {% for message in messages %}
+                    <li>{{message}}</li>
+                    {% endfor %}
+
+                    <p class="text-center"><input type="submit" class="btn btn--main" value="Login"></p>
+                    <p class="text-center">OR</p>
+                    <p class="text-center"><a href="#" class="facebook-login ">
+                            <i class="fab fa-facebook"></i>Log in with Facebook
+                        </a></p>
+                    <p class="text-center"><a href="#" class="password-reset">Forgot password?</a></p>
+                </form>
+                <div class="sign-up">
+                    Don't have an account? <a href="{% url 'register' %}" class="btn--link">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% else %}
+<div class="container">
+    <div class="full-login" id="wrapper">
+        <div class="layout__box__x">
+            <div class="layout__boxHeader">
+                <div class="layout__boxTitle">
+                    <h3>Register</h3>
+                </div>
+            </div> 
+            <div class="layout__body">
+                <form class="form" action="" method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <div class="form__group form__group">
+                        <label for="room_name">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                    {% endfor %}
+
+                    <button class="btn btn--main align-center" type="submit">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                            viewBox="0 0 32 32">
+                            <title>lock</title>
+                            <path
+                                d="M27 12h-1v-2c0-5.514-4.486-10-10-10s-10 4.486-10 10v2h-1c-0.553 0-1 0.447-1 1v18c0 0.553 0.447 1 1 1h22c0.553 0 1-0.447 1-1v-18c0-0.553-0.447-1-1-1zM8 10c0-4.411 3.589-8 8-8s8 3.589 8 8v2h-16v-2zM26 30h-20v-16h20v16z">
+                            </path>
+                            <path
+                                d="M15 21.694v4.306h2v-4.306c0.587-0.348 1-0.961 1-1.694 0-1.105-0.895-2-2-2s-2 0.895-2 2c0 0.732 0.413 1.345 1 1.694z">
+                            </path>
+                        </svg>
+                        Register
+                    </button>
+                    {% for message in messages %}
+                    <li>{{message}}</li>
+                    {% endfor %}
+                </form>
+
+                <div class="auth__action">
+                    <p>Already have an account?</p>
+                    <a href="{% url 'login' %}" class="btn btn--main">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock content %}
