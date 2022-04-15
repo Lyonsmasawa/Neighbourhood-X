@@ -9,6 +9,7 @@ urlpatterns = [
     path('register/', views.registerPage, name="register"),
     path('admin-profile/', views.adminProfile, name="adminProfile"),
     path('set-up-neighbourhood/', views.setUpNeighbourhood, name="setUpNeighbourhood"),
+    path('dashboard/', views.dashboard, name="dashboard"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -57,8 +57,20 @@ def adminProfile(request):
 
 @login_required(login_url='login')
 def setUpNeighbourhood(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+    get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+
+    if get_neighbourhood != None:
+        return redirect(dashboard)
 
 
+    context = {}
+    return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
+
+@login_required(login_url='login')
+def dashboard(request):
+    
     context = {}
     return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
 
