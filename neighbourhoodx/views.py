@@ -30,7 +30,7 @@ def registerPage(request):
             Administrator.objects.create(user = user)
 
             login(request, user) 
-            return redirect(setUpNeighbourhood)
+            return redirect(adminProfile)
 
         else:
             messages.error(request, 'please try again')
@@ -39,6 +39,22 @@ def registerPage(request):
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/login_register.html', context)
+
+@login_required(login_url='login')
+def adminProfile(request):
+    if request.method == 'POST':
+        form = AdministratorForm(request.POST, request.FILES)
+        if form.is_valid():
+            admin_profile = form.save(commit=False)
+            admin_profile.user = request.user
+            admin_profile.save()
+        return redirect(setUpNeighbourhood)
+
+    else:
+        form = AdministratorForm()
+
+    context = {'form': form, }
+    return render(request, 'neighbourhoodx/admin_profile_form.html', context)
 
 @login_required(login_url='login')
 def setUpNeighbourhood(request):

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('login/', views.loginPage, name="login"),
     path('register/', views.registerPage, name="register"),
+    path('admin-profile/', views.adminProfile, name="adminProfile"),
     path('set-up-neighbourhood/', views.setUpNeighbourhood, name="setUpNeighbourhood"),
 ]
 
