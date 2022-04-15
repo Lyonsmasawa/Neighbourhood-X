@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from .forms import CustomUserForm, AdministratorForm, NeighbourhoodForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
-
 import folium
 
 # Create your views here.
@@ -87,6 +86,7 @@ def adminProfile(request):
 def setUpNeighbourhood(request):
     user = request.user
     administrator = Administrator.objects.get(user = user)
+
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
     except:
@@ -112,6 +112,24 @@ def setUpNeighbourhood(request):
 
 @login_required(login_url='login')
 def adminDashboard(request):
+    user = request.user
+    administrator = Administrator.objects.get(user = user)
+
+    try:
+        get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    except:
+        get_neighbourhood = None
+
+    if get_neighbourhood != None:
+        n_long = get_neighbourhood.location[0]
+        n_lat = get_neighbourhood.location[1]   
+
+        m = folium.Map(location=[n_lat, n_long], zoom_start=16)     
     
-    context = {}
+    else:
+        return redirect(setUpNeighbourhood)
+
+    m = m._repr_html_() #html representation
+    
+    context = {'map': m,}
     return render(request, 'neighbourhoodx/admin_dashboard.html', context)
