@@ -27,7 +27,7 @@ class Neighbourhood(models.Model):
     admin = models.ForeignKey(Administrator, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
-    occupants = models.IntegerField(default=1)
+    occupants = models.IntegerField(default=1, blank=True)
     address = AddressAutoHiddenField() 
 
     class Meta:

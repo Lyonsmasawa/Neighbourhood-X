@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
-from .forms import CustomUserForm, AdministratorForm
+from .forms import CustomUserForm, AdministratorForm, NeighbourhoodForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
 
@@ -59,13 +59,27 @@ def adminProfile(request):
 def setUpNeighbourhood(request):
     user = request.user
     administrator = Administrator.objects.get(user = user)
-    get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    try:
+        get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
+    except:
+        get_neighbourhood = None
 
     if get_neighbourhood != None:
         return redirect(dashboard)
 
+    else:
+        if request.method == 'POST':
+            form = NeighbourhoodForm(request.POST)
+            if form.is_valid():
+                neighbourhood = form.save(commit=False)
+                neighbourhood.admin = administrator
+                neighbourhood.save()
+            return redirect(dashboard)
 
-    context = {}
+        else:
+            form = NeighbourhoodForm()
+
+    context = {'form': form}
     return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
 
 @login_required(login_url='login')

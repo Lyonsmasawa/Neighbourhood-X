@@ -2,6 +2,23 @@
 
 
 {% block content %}
+<div class="container">
     <strong>{{request.user.username}}</strong>
+    <form class="form" action="" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form__group form__group">
+            <label for="room_name">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+
+        <button class="btn btn--main align-center" type="submit">Set Up</button>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </form>
+
+</div>
 {% endblock content %}
-    
