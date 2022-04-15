@@ -23,6 +23,7 @@ urlpatterns = [
     
     ## resident
     path('resident-dashboard/', views.residentDashboard, name="residentDashboard"),
+    path('view-other-residents/', views.viewOtherResidents, name="view-other-residents"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

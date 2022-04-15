@@ -473,7 +473,7 @@ def residentDashboard(request):
         folium.CircleMarker(
             [n_lat, n_long],
             tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
-            popup='home', 
+            popup='base', 
             radius = 300,
             color='blue',
             fill=True,
@@ -501,3 +501,26 @@ def residentDashboard(request):
     
     context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
     return render(request, 'neighbourhoodx/resident_dashboard.html', context)
+
+def viewOtherResidents(request):
+    user = request.user
+
+    try:
+        resident = Member.objects.get(user = user)
+    except:
+        raise Http404()
+
+    get_neighbourhood = resident.neighbourhood
+
+    if get_neighbourhood is None:
+        raise Http404()
+
+    else:
+        #basic option
+        # residents = Member.objects.filter(neighbourhood = get_neighbourhood)
+
+        #super option
+        residents = get_neighbourhood.member_set.all()
+
+    context = {'residents': residents}
+    return render(request, 'neighbourhoodx/residents.html', context)
