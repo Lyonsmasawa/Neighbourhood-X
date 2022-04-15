@@ -4,7 +4,7 @@
 <a href="{% url 'view-other-residents' %}">view residents</a>
 <a href="{% url 'business' %}">add business</a>
 <a href="{% url 'resident-post' %}">Message</a>
-<a href="">profile</a>
+<a href="{% url 'profile' request.user.id %}">profile</a>
 <a href="{% url 'logout' %}">logout</a>
 <div class="container">
     {{map | safe}}

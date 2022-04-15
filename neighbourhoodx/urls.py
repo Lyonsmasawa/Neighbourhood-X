@@ -26,6 +26,7 @@ urlpatterns = [
     path('view-other-residents/', views.viewOtherResidents, name="view-other-residents"),
     path('resident-post/', views.residentPost, name="resident-post"),
     path('business/', views.business, name="business"),
+    path('profile/<str:pk>/', views.profile, name="profile"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
