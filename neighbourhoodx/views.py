@@ -5,6 +5,8 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
+
+from .emails import send_welcome_resident, send_welcome_email
 from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
@@ -58,7 +60,15 @@ def registerPage(request):
 
             Administrator.objects.create(user = user)
 
-            login(request, user) 
+            try:
+                email = user.email
+                name = user.username
+                send_welcome_email(name, email)
+
+                login(request, user) 
+                
+            except:
+                login(request, user) 
             return redirect(adminProfile)
 
         else:
@@ -181,8 +191,9 @@ def addResident(request):
                 member_count = members.count()
                 get_neighbourhood = member_count + 1
                 get_neighbourhood.save()
-                                
-                send_signup_email_resident(name, username, password,admin.user.username, get_neighbourhood.name, email)
+                
+                #send email to resident
+                send_welcome_resident(name,username,password,administrator.user.username ,get_neighbourhood.name, email)
             
             return redirect(adminDashboard)
 

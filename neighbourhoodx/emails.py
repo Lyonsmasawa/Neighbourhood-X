@@ -14,7 +14,7 @@ def send_welcome_email(name,receiver):
     msg.send()
 
 
-def send_signup_email_resident(name,username,password,administrator,neighbourhood,receiver):
+def send_welcome_resident(name,username,password,administrator,neighbourhood,receiver):
     # Creating message subject and sender
     subject = 'Welcome to MyNeighbourhood'
     sender = 'renderwes@gmail.com'
