@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 
 from .emails import send_welcome_resident, send_welcome_email
-from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm
+from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SocialServices, Member, Post, Business
 import folium
@@ -555,8 +555,29 @@ def residentPost(request):
     return render(request, 'neighbourhoodx/add_post.html', context)
 
 def business(request):
+    user = request.user
+    
+    try:
+        resident = Member.objects.get(user = user)
+    except:
+        raise Http404()
 
+    get_neighbourhood = resident.neighbourhood
 
+    if get_neighbourhood is None:
+        raise Http404()
+
+    else:
+        if request.method == 'POST':
+            form = BusinessForm(request.POST)
+            if form.is_valid():
+                service = form.save(commit=False)
+                service.neighbourhood = get_neighbourhood
+                service.save()
+            return redirect(adminDashboard)
+
+        else:
+            form = BusinessForm()
 
     context = {'form': form}
     return render(request, 'neighbourhoodx/add_business.html', context)
