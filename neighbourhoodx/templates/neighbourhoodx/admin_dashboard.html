@@ -45,8 +45,14 @@
     </div>
 </nav>
 
-<div class="container" style="width: 100%; height: 50vh;">
-    {{map | safe}}
+<div class="container-fluid admin">
+    <div class="admin-blank">
+        <strong class="text-center">Welcome To Neighbourhood-X</strong>
+    </div>
+    <div class="admin-map">
+        <p class="text-center p-txt">{{hood.name}} Hood</p>
+        {{map | safe}}
+    </div>
 </div>
 
 {% for post in posts %}

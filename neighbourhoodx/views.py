@@ -173,7 +173,7 @@ def adminDashboard(request):
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
 
         # folium map
-        m = folium.Map(location=[n_lat, n_long], zoom_start=16)
+        m = folium.Map(location=[n_lat, n_long], zoom_start=10)
 
         #location marker
         folium.Marker([n_lat, n_long],
@@ -188,7 +188,7 @@ def adminDashboard(request):
             [n_lat, n_long],
             tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
             popup='Join our neighbourhood', 
-            radius = 300,
+            radius = 100,
             color='blue',
             fill=True,
             fill_color='aqua'
