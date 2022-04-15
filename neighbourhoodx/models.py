@@ -59,7 +59,7 @@ class Member(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    profile_photo = models.ImageField()
+    profile_photo = models.ImageField(default='default.jpg')
     home_location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     address = AddressAutoHiddenField() 
 
