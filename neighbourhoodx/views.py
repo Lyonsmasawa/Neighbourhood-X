@@ -1,3 +1,4 @@
+from multiprocessing import context
 import random
 import string
 from urllib import request
@@ -18,23 +19,30 @@ import folium
 @login_required(login_url='login')
 def home(request):
     user = request.user
-    administrator = Administrator.objects.filter(user = user)
+    
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        administrator = None
     
     if administrator != None:
         return redirect(adminDashboard)
 
     else:
-        member = Member.objects.get(user = user)
+        try:
+            member = Member.objects.get(user = user)
+        except:
+            pass
         if member != None:
             return redirect(residentDashboard)
         else:
-            return Http404
+            raise Http404()
 
 def loginPage(request):
     page = 'login'
 
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect(home)
 
     if request.method == 'POST':
         username = request.POST.get("username").lower()
@@ -44,7 +52,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect(home)
         else:
             messages.error(request, 'Invalid username or Password')
 
@@ -112,7 +120,11 @@ def adminProfile(request):
 @login_required(login_url='login')
 def setUpNeighbourhood(request):
     user = request.user
-    administrator = Administrator.objects.filter(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -140,7 +152,11 @@ def setUpNeighbourhood(request):
 @login_required(login_url='login')
 def adminDashboard(request):
     user = request.user
-    administrator = Administrator.objects.filter(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -202,7 +218,10 @@ def adminDashboard(request):
 def addResident(request):
     user = request.user
 
-    administrator = Administrator.objects.get(user = user)
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -249,7 +268,12 @@ def addResident(request):
 
 def viewResidents(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
+
     get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
     if get_neighbourhood is None:
@@ -267,7 +291,12 @@ def viewResidents(request):
 
 def socialServices(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
+
     get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
     if get_neighbourhood is None:
@@ -290,7 +319,12 @@ def socialServices(request):
 
 def post(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
+
     get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
 
     if get_neighbourhood is None:
@@ -315,7 +349,11 @@ def post(request):
 @login_required(login_url='login')
 def adjust(request):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -344,7 +382,11 @@ def adjust(request):
 @login_required(login_url='login')
 def deleteNeighbourhood(request, pk):
     user = request.user
-    administrator = Administrator.objects.get(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -369,7 +411,11 @@ def deleteNeighbourhood(request, pk):
 def deleteResident(request, pk):
     user = request.user
     get_resident = Member.objects.get(id = pk)
-    administrator = Administrator.objects.get(user = user)
+
+    try:
+        administrator = Administrator.objects.get(user = user)
+    except:
+        raise Http404()
 
     try:
         get_neighbourhood = Neighbourhood.objects.get(admin = administrator)
@@ -402,6 +448,56 @@ def deleteResident(request, pk):
 
 ## RESIDENT SECTION
 def residentDashboard(request):
+    user = request.user
+    resident = Member.objects.get(user = user)
+    get_neighbourhood = resident.neighbourhood
 
-    context = {}
+    if get_neighbourhood != None:
+        posts = get_neighbourhood.post_set.all()
+        n_long = get_neighbourhood.location[0]
+        n_lat = get_neighbourhood.location[1]   
+        social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
+
+        # folium map
+        m = folium.Map(location=[n_lat, n_long], zoom_start=16)
+
+        #location marker
+        folium.Marker([n_lat, n_long],
+            popup=f'<strong>{user.username}</strong> Neighbourhood <p>where you belong</p>',
+            tooltip='Click here for more', 
+            icon=folium.Icon(icon='home', color='blue')
+            ).add_to(m)
+
+        
+
+        folium.CircleMarker(
+            [n_lat, n_long],
+            tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
+            popup='home', 
+            radius = 300,
+            color='blue',
+            fill=True,
+            fill_color='aqua'
+            ).add_to(m)
+
+        if social_services != None:
+            for service in social_services:
+                s_long = service.location[0]
+                s_lat = service.location[1]
+
+                folium.Marker([s_lat, s_long],
+                    popup=f'<strong>{service.name}</strong>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(icon='cloud', color='red')
+                    ).add_to(m),
+
+        else:
+            posts = None
+    
+    else:
+        return redirect(loginPage)
+
+    m = m._repr_html_() #html representation
+    
+    context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
     return render(request, 'neighbourhoodx/resident_dashboard.html', context)
