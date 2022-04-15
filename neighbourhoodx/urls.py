@@ -28,7 +28,7 @@ urlpatterns = [
     path('business/', views.business, name="business"),
     path('profile/<str:pk>/', views.profile, name="profile"),
     path('edit-profile/<str:pk>/', views.editProfile, name="edit-profile"),
-    path('password-change/', views.ChangePasswordView, name='password_change'),
+    path('password-change/', views.ChangePasswordView.as_view(), name='password_change'),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
