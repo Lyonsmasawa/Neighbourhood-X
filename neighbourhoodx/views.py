@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 
 from .emails import send_welcome_resident, send_welcome_email
-from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, SocialServicesForm
+from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business, SocialServices
 import folium
@@ -270,7 +270,7 @@ def post(request):
 
     else:
         if request.method == 'POST':
-            form = SocialServicesForm(request.POST)
+            form = PostForm(request.POST)
             if form.is_valid():
                 service = form.save(commit=False)
                 service.neighbourhood = get_neighbourhood
@@ -278,7 +278,7 @@ def post(request):
             return redirect(adminDashboard)
 
         else:
-            form = SocialServicesForm()
+            form = PostForm()
 
     context = {'form': form}
-    return render(request, 'neighbourhoodx/social_services.html', context)
+    return render(request, 'neighbourhoodx/add_post.html', context)
