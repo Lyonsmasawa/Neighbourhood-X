@@ -182,6 +182,8 @@ def addResident(request):
                 get_neighbourhood = member_count + 1
                 get_neighbourhood.save()
                                 
+                send_signup_email_resident(name, username, password,admin.user.username, get_neighbourhood.name, email)
+            
             return redirect(adminDashboard)
 
         else:

@@ -1,0 +1,7 @@
+Hello {{name}}
+
+Thank you for creating a MyNeighbourhood account. As an admin, you're responsible for creating your neighbourhood and adding occupants. 
+
+Welcome!
+
+MyNeighbourhood Management (2020)

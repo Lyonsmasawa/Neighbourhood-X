@@ -1,0 +1,10 @@
+Hello {{name}}
+
+You have been added to {{neighbourhood}} neighbourhood successfully
+
+Use the following credentials to log in to your account and immediately change your password for security of your account
+
+Username:{{username}}
+Password:{{password}}
+
+© Lyons Albert (lyonsmasawa@gmail.com)
