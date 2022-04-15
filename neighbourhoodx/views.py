@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from .emails import send_welcome_resident, send_welcome_email
 from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, SocialServicesForm
 from django.contrib.auth.decorators import login_required
-from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
+from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business, SocialServices
 import folium
 
 # Create your views here.
@@ -136,6 +136,7 @@ def adminDashboard(request):
     if get_neighbourhood != None:
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
+        social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
 
         # folium map
         m = folium.Map(location=[n_lat, n_long], zoom_start=16)
@@ -146,6 +147,20 @@ def adminDashboard(request):
             tooltip='Click here for more', 
             icon=folium.Icon(icon='home', color='blue')
             ).add_to(m),
+
+        if social_services != None:
+            for service in social_services:
+                s_long = service.location[0]
+                s_lat = service.location[1]
+
+                folium.Marker([s_lat, s_long],
+                    popup=f'<strong>{service.name}</strong>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(icon='cloud', color='red')
+                    ).add_to(m),
+
+        else:
+            pass
     
     else:
         return redirect(setUpNeighbourhood)
