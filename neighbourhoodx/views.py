@@ -1,9 +1,11 @@
+import random
+import string
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
-from .forms import CustomUserForm, AdministratorForm, NeighbourhoodForm
+from .forms import AddResidentForm, CustomUserForm, AdministratorForm, NeighbourhoodForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SOCIAL_SERVICES, Member, Post, Business
 import folium
@@ -157,8 +159,34 @@ def addResident(request):
         return redirect(setUpNeighbourhood)
 
     else:
-        pass
-    
-    context = {}
+        if request.method == 'POST':
+            form = AddResidentForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                name = form.cleaned_data['name']
+                email = form.cleaned_data['email']
+
+                #generates random password for the resident
+                password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+                # creates user with the given details
+                resident_user = User.objects.create_user(username, email, password)
+
+                #save as a member of the neighbourhood
+                member = Member(user=resident_user, neighbourhood=get_neighbourhood, name=name)
+                member.save()
+                
+                #increase residents count
+                members = Member.objects.filter(neighbourhood = get_neighbourhood)
+                member_count = members.count()
+                get_neighbourhood = member_count + 1
+                get_neighbourhood.save()
+                                
+            return redirect(adminDashboard)
+
+        else:
+            form = AddResidentForm()
+      
+    context = {'form': form}
     return render(request, 'neighbourhoodx/add_resident.html', context)
 
