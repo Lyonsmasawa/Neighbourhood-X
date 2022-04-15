@@ -621,6 +621,6 @@ def editProfile(request, pk):
     return render(request, 'neighbourhoodx/edit_profile.html', context)
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
-    template_name = 'users/change_password.html'
+    template_name = 'neighbourhoodx/change_password.html'
     success_message = "Successfully Changed Your Password"
-    success_url = reverse_lazy('users-home')
+    success_url = reverse_lazy(residentDashboard)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from mapbox_location_field.models import LocationField,  AddressAutoHiddenField
+from PIL import Image
 
 # Create your models here.
 class Administrator(models.Model):
@@ -56,6 +57,16 @@ class Member(models.Model):
         verbose_name = 'Member'
         verbose_name_plural = 'Members'
 
+    # resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.avatar.path)
     def __str__(self):
         """Unicode representation of Member."""
         return str(self.user.username)
