@@ -65,7 +65,7 @@ def setUpNeighbourhood(request):
         get_neighbourhood = None
 
     if get_neighbourhood != None:
-        return redirect(dashboard)
+        return redirect(adminDashboard)
 
     else:
         if request.method == 'POST':
@@ -74,7 +74,7 @@ def setUpNeighbourhood(request):
                 neighbourhood = form.save(commit=False)
                 neighbourhood.admin = administrator
                 neighbourhood.save()
-            return redirect(dashboard)
+            return redirect(adminDashboard)
 
         else:
             form = NeighbourhoodForm()
@@ -83,7 +83,7 @@ def setUpNeighbourhood(request):
     return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
 
 @login_required(login_url='login')
-def dashboard(request):
+def adminDashboard(request):
     
     context = {}
     return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
