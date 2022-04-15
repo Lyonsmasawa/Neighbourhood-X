@@ -134,7 +134,6 @@ def adminDashboard(request):
             icon=folium.Icon(icon='home', color='blue')
             ).add_to(m),
     
-      
     else:
         return redirect(setUpNeighbourhood)
 
@@ -142,3 +141,9 @@ def adminDashboard(request):
     
     context = {'map': m,}
     return render(request, 'neighbourhoodx/admin_dashboard.html', context)
+
+def addResident(request):
+
+    context = {'map': m,}
+    return render(request, 'neighbourhoodx/admin_dashboard.html', context)
+

@@ -1,8 +1,12 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <div class="container">
-        {{map | safe}}
-    </div>
+<a href="{% url 'add-resident' %}">add resident</a>
+<a href="">view residents</a>
+<a href="">set up social service</a>
+<a href="">edit</a>
+<a href="">logout</a>
+<div class="container" style="width: 100%; height: 10vh;">
+    {{map | safe}}
+</div>
 {% endblock content %}
-    
