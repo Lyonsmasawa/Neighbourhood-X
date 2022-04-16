@@ -557,7 +557,7 @@ def residentPost(request):
             form = PostForm()
 
     context = {'form': form}
-    return render(request, 'neighbourhoodx/add_post.html', context)
+    return render(request, 'neighbourhoodx/add_post_res.html', context)
 
 @login_required(login_url='login')
 def business(request):
