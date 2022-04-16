@@ -258,6 +258,12 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: 110vh;
+    background: linear-gradient(to bottom,
+            rgba(0, 153, 145, 0),
+            rgba(0, 0, 0, 5)), url('../images/adminbg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .l-gx{
@@ -366,7 +372,7 @@
 
 .has-separator {
     font-size: 1.3rem;
-    color: #999999;
+    color: white;
     position: relative;
     margin-bottom: 2rem;
 }
@@ -380,24 +386,6 @@
     fill: white;
     width: 1.6rem;
     height: 1.6rem;
-}
-.has-separator::before,
-.has-separator::after {
-    content: "";
-    position: absolute;
-    background-color: #eee;
-    width: 40%;
-    height: 1px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.has-separator.has-separator::before {
-    left: 0;
-}
-
-.has-separator.has-separator::after {
-    right: 0;
 }
 
 .facebook-login {
