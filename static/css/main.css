@@ -61,3 +61,76 @@
 
    
 }
+.res-form{
+    border: 2px solid black;
+    padding: 2%;
+    background-color: black;
+    color: white;
+}
+.resx{
+    position: absolute;
+    top: 38%;
+    left: 18%;
+    z-index: 2;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5rem;
+
+/*========== components ==========*/
+
+
+.btn {
+    background-color: transparent;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    color: white;
+    transition: all ease-in-out 0.3s;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+}
+
+.btn--link {
+    border-radius: 0;
+    padding: 0;
+    color: black;
+    box-shadow: none;
+}
+
+.btn--link:hover {
+    text-decoration: underline;
+}
+
+.btn--main {
+    background-color: black;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn--dark {
+    background-color: white;
+    color: black;
+}
+.btn-transparent {
+    background-color: transparent;
+    border: none;
+}
+.btn-dark {
+    border-radius: 0%;
+    line-height: normal;
+    font-size: 100%;
+    margin: 0%;
+    background-color: black;
+    color: white;
+    font-weight: 900;
+    white-space: nowrap;
+}

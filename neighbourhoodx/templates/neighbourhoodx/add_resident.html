@@ -2,17 +2,15 @@
 {% load bootstrap5 %}
 
 {% block content %}
-<div class="container">
-    <strong>{{request.user.username}}</strong>
-{{ form.media }}
-
-<div class="container">
-    <h1>Add resident to the neighbourhood</h1>
-    <form action="" method="post">
-        {%csrf_token%}
-        {% bootstrap_form form %}
-        <input type="submit" class="btn btn-primary" value="Add">
-    </form>
+{% include 'admin_nav.html' %}
+<div class="resx">
+    <div class="container res-form" style="max-width: 30rem; ">
+        <h1>Add resident to the neighbourhood</h1>
+        <form action="" method="post">
+            {%csrf_token%}
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-dark" value="Add">
+        </form>
+    </div>
 </div>
-
 {% endblock content %}

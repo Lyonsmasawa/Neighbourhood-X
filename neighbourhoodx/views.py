@@ -265,7 +265,7 @@ def addResident(request):
         else:
             form = AddResidentForm()
       
-    context = {'form': form}
+    context = {'form': form, 'hood':get_neighbourhood}
     return render(request, 'neighbourhoodx/add_resident.html', context)
 
 def viewResidents(request):
