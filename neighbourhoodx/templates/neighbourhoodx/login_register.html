@@ -25,15 +25,15 @@
                         </div>
                     </div>
                     <p class="text-center">
-                        <input type="submit" value="Login" class="btn btn--main" style="width: max-content;">
+                        <input type="submit" value="Login" class="btn btn--main sl" style="width: max-content;">
                     </p>
-                    <span class="has-separator">OR</span>
+                    <span class="has-separator text-center">OR</span>
                     <a href="#" class="text-center text-decoration-none facebook-login">
                         <i class="fab fa-facebook"></i>Log in with Facebook
                     </a>
-                    <a href="#" class="password-reset">Forgot password?</a>
+                    <a href="{% url 'password_reset' %}" class="text-center password-reset">Forgot password?</a>
                     <div class="sign-up">
-                        Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+                        Don't have an account? <a href="{% url 'register' %}" class="btn sd"> Register </a>
                     </div>
                 </form>
             </div>
