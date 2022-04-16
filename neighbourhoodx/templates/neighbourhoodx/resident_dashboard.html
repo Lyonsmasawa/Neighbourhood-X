@@ -4,12 +4,33 @@
 {% block content %}
 {% include 'res_nav.html' %}
 
-<div class="container">
-    {{map | safe}}
+<div class="container-fluid admin">
+    <div class="admin-blank">
+        <strong class="text-center">Welcome To Neighbourhood-X</strong>
+    </div>
+    <div class="admin-map">
+        <p class="text-center p-txt">{{hood.name}} Hood</p>
+       <strong> {{map | safe}}</strong>
+    </div>
 </div>
 
-{% for post in posts %}
-    {{post.body}}
-{% endfor %}
-    {{hood.occupants}}
+<div class="container">
+    <p class="text-center p-1"><strong>{{hood.name}}</strong> Neighbourhood: {{hood.address}} -- {{hood.location}}</p>
+    <p><strong>Resident Posts</strong></p>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-3">
+            <div class="card text-white bg-black mb-4" style="max-width: 15rem; max-height: 9rem;">
+                <div class="card-header">{{post.posted | timesince}}</div>
+                <div class="card-body">
+                    <h5 class="card-title card post-card">{{post.body}}</h5>
+                    <p class="card-text">By: {{post.poster}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<!-- {{hood.occupants}} -->
 {% endblock content %}
