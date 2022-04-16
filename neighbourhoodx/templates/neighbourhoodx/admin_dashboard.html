@@ -20,7 +20,7 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-3">
-            <div class="card text-white bg-dark mb-1" style="max-width: 15rem; max-height: 9rem;">
+            <div class="card text-white bg-black mb-1" style="max-width: 15rem; max-height: 9rem;">
                 <div class="card-header">{{post.posted | timesince}}</div>
                 <div class="card-body">
                     <h5 class="card-title card post-card">{{post.body}}</h5>
