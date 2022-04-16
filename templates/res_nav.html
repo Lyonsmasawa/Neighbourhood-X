@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid navbar-x">
+        <a class="navbar-brand" href="{% url 'adminDashboard' %}"><strong>Admin: {{hood.admin.user.username | upper}} </strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search for ..." aria-label="Search">
+                    <button class="btn btn--dark" type="submit">Search</button>
+                </form>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'business' %}">add business</a>
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" href="{% url 'resident-post' %}">Create Post</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        More options
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'view-other-residents' %}">view Residents</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile' request.user.id %}">profile</a></li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

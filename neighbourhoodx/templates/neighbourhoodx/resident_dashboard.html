@@ -2,11 +2,8 @@
 {% load bootstrap5 %}
 
 {% block content %}
-<a href="{% url 'view-other-residents' %}">view residents</a>
-<a href="{% url 'business' %}">add business</a>
-<a href="{% url 'resident-post' %}">Message</a>
-<a href="{% url 'profile' request.user.id %}">profile</a>
-<a href="{% url 'logout' %}">logout</a>
+{% include 'res_nav.html' %}
+
 <div class="container">
     {{map | safe}}
 </div>
