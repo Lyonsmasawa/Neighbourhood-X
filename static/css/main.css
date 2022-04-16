@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+
+* {
+    font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+
+}
 .nav-item{
     color: black;
 }
@@ -40,4 +51,13 @@
 .post-card{
     color: black;
     padding: 1.5%;
+}
+
+.navbar-x{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+   
 }
