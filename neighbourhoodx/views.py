@@ -288,7 +288,7 @@ def viewResidents(request):
         #super option
         residents = get_neighbourhood.member_set.all()
 
-    context = {'residents': residents}
+    context = {'residents': residents,  'hood':get_neighbourhood,}
     return render(request, 'neighbourhoodx/residents.html', context)
 
 def socialServices(request):

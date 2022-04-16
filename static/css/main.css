@@ -94,6 +94,23 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+.ssx{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.f-right{
+    float: right;
+}
+
+.brt{
+    border: .25px solid white;
+}
+
 .neighsx{
     position: absolute;
     top: 10%;
