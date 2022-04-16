@@ -3,18 +3,21 @@
 
 
 {% block content %}
-
-<div class="container">
-    <strong>{{request.user.username}}</strong>
-{{ form.media }}
-
-<div class="container">
-    <h1>Add Post</h1>
-    <form action="" method="post">
-        {%csrf_token%}
-        {% bootstrap_form form %}
-        <input type="submit" class="btn btn-primary" value="Create">
-    </form>
+{% include 'admin_nav.html' %}
+<div class="servicesx">
+    <div class="container res-form" style="max-width: 30rem; ">
+        <div class="container">
+            <h1>Add Post</h1>
+            <p>Enter Your Message in the space below ...</p>
+            <form action="" method="post">
+                {%csrf_token%}
+                {% bootstrap_form form %}
+                <p class="text-center">
+                    <input type="submit" class="btn btn--main" value="Add Post">
+                </p>
+            </form>
+        </div>
+    </div>
 </div>
 
 

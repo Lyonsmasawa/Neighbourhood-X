@@ -345,7 +345,7 @@ def post(request):
         else:
             form = PostForm()
 
-    context = {'form': form}
+    context = {'form': form, 'hood':get_neighbourhood,}
     return render(request, 'neighbourhoodx/add_post.html', context)
 
 @login_required(login_url='login')
