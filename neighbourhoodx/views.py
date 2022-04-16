@@ -377,7 +377,7 @@ def adjust(request):
         else:
             form = NeighbourhoodForm(instance = get_neighbourhood)
 
-    context = {'form': form}
+    context = {'form': form, 'hood':get_neighbourhood,}
     return render(request, 'neighbourhoodx/set_up_neighbourhood.html', context)
 
 

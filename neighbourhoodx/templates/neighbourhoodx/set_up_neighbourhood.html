@@ -3,18 +3,22 @@
 
 
 {% block content %}
+{% include 'admin_nav.html' %}
+<div class="neighsx">
+    <div class="container res-form" style="max-width: 60rem; ">
+        {{form.media}}
 
-<div class="container">
-    <strong>{{request.user.username}}</strong>
-{{ form.media }}
-
-<div class="container">
-    <h1>Create Neighbourhood</h1>
-    <form action="" method="post">
-        {%csrf_token%}
-        {% bootstrap_form form %}
-        <input type="submit" class="btn btn-primary" value="Create">
-    </form>
+        <div class="container">
+            <h1>Set Up Neighbourhood</h1>
+            <form action="" method="post">
+                {%csrf_token%}
+                {% bootstrap_form form %}
+                <p class="text-center">
+                    <input type="submit" class="btn btn--main" value="Save Hood">
+                </p>
+            </form>
+        </div>
+    </div>
 </div>
 
 
