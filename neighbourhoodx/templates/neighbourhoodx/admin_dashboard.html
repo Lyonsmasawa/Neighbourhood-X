@@ -4,7 +4,7 @@
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'adminDashboard' %}">Dashboard</a>
+        <a class="navbar-brand" href="{% url 'adminDashboard' %}"><strong>Admin: {{hood.admin.user.username | upper}} </strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@
     </div>
     <div class="admin-map">
         <p class="text-center p-txt">{{hood.name}} Hood</p>
-        {{map | safe}}
+       <strong> {{map | safe}}</strong>
     </div>
 </div>
 
@@ -61,8 +61,8 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-3">
-            <div class="card text-white bg-dark" style="max-width: 15rem;">
-                <div class="card-header">{{post.posted}}</div>
+            <div class="card text-white bg-dark mb-1" style="max-width: 15rem; max-height: 9rem;">
+                <div class="card-header">{{post.posted | timesince}}</div>
                 <div class="card-body">
                     <h5 class="card-title card post-card">{{post.body}}</h5>
                     <p class="card-text">By: {{post.poster}}</p>
