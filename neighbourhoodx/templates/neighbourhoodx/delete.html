@@ -2,14 +2,14 @@
 {% load bootstrap5 %}
 
 {% block content %}
+{% include 'admin_nav.html' %}
 <main class="delete-item layout">
     <div class="container">
         <div class="layout__box">
             <div class="layout__boxHeader">
                 <div class="layout__boxTitle">
                     <a href="{{request.META.HTTP_REFERER}}">
-                        <i class="fa fa-backward text-decoration-none" > Back</i>
-                        
+                        <i class="fa fa-backward text-decoration-none btn btn--main" > Back</i>
                     </a>
 
                 </div>
@@ -18,9 +18,9 @@
                 <form class="form" action="" method="post">
                     {% csrf_token %}
                     <div class="form__group">
-                        <strong>{{obj.name}}</strong>
-                        <p>{{obj.address}}</p>
-                        <p>are you sure you want delete "{{obj | upper}}"? </p>
+                        <strong>Neighbourhood: {{obj.name}}</strong>
+                        <p><strong>Location:</strong> {{obj.address}}</p>
+                        <p>are you sure you want delete <strong>"{{obj | upper}}"</strong> hood ? </p>
                     </div>
 
                     <div class="for__group">

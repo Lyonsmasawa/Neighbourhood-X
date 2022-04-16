@@ -406,7 +406,7 @@ def deleteNeighbourhood(request, pk):
             get_neighbourhood.delete()
             return redirect(registerPage)
     
-    context = {'obj':get_neighbourhood}
+    context = {'obj':get_neighbourhood, 'hood':get_neighbourhood,}
     return render(request, 'neighbourhoodx/delete.html', context)
 
 @login_required(login_url='login')
