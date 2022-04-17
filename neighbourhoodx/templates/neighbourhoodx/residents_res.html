@@ -18,11 +18,6 @@
         align-items: center
     }
 
-    .profile-image {
-        border-radius: 10px;
-        border: 2px solid black;
-    }
-
     .name {
         font-weight: bold;
         color: #272727;
@@ -47,8 +42,12 @@
             {% for resident in residents %}
             <div class="col-md-3">
                 <div class="card">
-                    <div class="top-container"> <img src="{{resident.profile_photo.url}}"
-                            class="img-fluid profile-image" width="70">
+                    <div class="top-container">
+                        {% if resident.profile_photo %}
+                        <img src="{{resident.profile_photo.url}}" alt="" class=" img-fluid img-thumbnail" width="70">
+                        {% else %}
+                        <img src="{% static 'images/avatar.jpg' %}" alt="" class=" img-fluid img-thumbnail" width="70">
+                        {%endif%}
                     </div>
                     <div class="">
                         <h5 class="name">{{resident.user.username}}</h5>

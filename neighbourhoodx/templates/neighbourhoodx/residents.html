@@ -17,7 +17,8 @@
             <div class="col">
                 <div class="card bg-black mb-1 brt" style="max-width: 12rem;">
                     <div class="card-body">
-                        <a class="f-right text-decoration-none text-white" href="{% url 'delete-resident' resident.id %}"><i class="fa fa-times"
+                        <a class="f-right text-decoration-none text-white"
+                            href="{% url 'delete-resident' resident.id %}"><i class="fa fa-times"
                                 aria-hidden="true"></i></a>
                         <p>
                             {% if resident.profile_photo %}
@@ -28,6 +29,23 @@
                             {%endif%}
                         </p>
                         <p class="card-text">Username: <strong>{{resident.user.username}}</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <a class="f-right text-decoration-none text-white" href="{% url 'delete-resident' resident.id %}"><i
+                            class="fa fa-times" aria-hidden="true"></i></a>
+                    <div class="top-container">
+                        {% if resident.profile_photo %}
+                        <img src="{{resident.profile_photo.url}}" alt="" class=" img-fluid img-thumbnail" width="70">
+                        {% else %}
+                        <img src="{% static 'images/avatar.jpg' %}" alt="" class=" img-fluid img-thumbnail" width="70">
+                        {%endif%}
+                    </div>
+                    <div class="">
+                        <h5 class="name">{{resident.user.username}}</h5>
+                        <p class="mail">{{resident.user.email}}</p>
                     </div>
                 </div>
             </div>
