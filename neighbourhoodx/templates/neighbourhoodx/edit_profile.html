@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="container-fluid bgx">
-    <h3 class="text-white bg-black p-2 mt-1"><strong>Edit your profile</strong></h3
     {% if user_form.errors %}
     <div class="alert alert-danger alert-dismissible" role="alert">
         <div id="form_errors">
@@ -16,13 +15,20 @@
         </button>
     </div>
     {% endif %}
-
-    <div class="l-gx" style="max-width:40rem;">
+    <div class="l-gx" style="max-width:30rem;">
         <div class="container">
             <div class="form-data">
                 <form action="" method="post" class="fm ressx">
                     {% csrf_token %}
                     <div class="dix">
+                        <div class="layout__boxHeader">
+                            <div class="layout__boxTitle">
+                                <a href="{{request.META.HTTP_REFERER}}">
+                                   Back
+                                </a>
+                            </div>
+                            <h5>Edit your profile</h5>
+                        </div>
                         <div class="form__group">
                             <label for="" class="fm">Username:</label>
                             {{ user_form.username }}
@@ -33,7 +39,10 @@
                             {{ user_form.email }}
                         </div>
                         <div class="form__group">
-                            <a href="{% url 'password_change' %}">Change Password</a>
+                            <p class="text-center">
+                                <a href="{% url 'password_change' %}" class="btn btn--main sl bg-white text-black"
+                                    style="width: max-content;">Change Password</a>
+                            </p>
                             <hr>
                             <label class="small mb-1">Change Avatar:</label>
                             <p class="text-center">

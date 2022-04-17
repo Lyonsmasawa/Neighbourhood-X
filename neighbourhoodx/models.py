@@ -60,8 +60,10 @@ class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     profile_photo = models.ImageField(default='default.jpg')
+    # bio =models.TextField()
     home_location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     address = AddressAutoHiddenField() 
+   
 
     class Meta:
         """Meta definition for Member."""
@@ -69,7 +71,7 @@ class Member(models.Model):
         verbose_name = 'Member'
         verbose_name_plural = 'Members'
 
-    # resizing images
+    # resizing images # joined = models.DateTimeField(auto_now_add=True)
     def save(self, *args, **kwargs):
         super().save()
 

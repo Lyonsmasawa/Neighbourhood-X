@@ -592,10 +592,11 @@ def business(request):
 @login_required(login_url='login')
 def profile(request, pk):
     user = request.user
+    resident = Member.objects.get(user = user)
 
     profile = User.objects.get(id = user.id)
 
-    context = {'profile': profile}
+    context = {'profile': profile, 'resident':resident,}
     return render(request, 'neighbourhoodx/profile.html', context)
 
 @login_required(login_url='login')

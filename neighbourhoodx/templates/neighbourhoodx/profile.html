@@ -1,7 +1,123 @@
 {% extends 'main.html' %}
 {% load bootstrap5 %}
+{% load static %}
 
 {% block content %}
-    {{profile.username}}
-    <a href="{% url 'edit-profile' profile.id %}">edit</a>
+
+<style>
+    body {
+        background-color: #000
+    }
+
+    .card {
+        width: 350px;
+        background-color: #efefef;
+        border: none;
+        cursor: pointer;
+        transition: all 0.5s
+    }
+
+    .image img {
+        transition: all 0.5s
+    }
+
+    .card:hover .image img {
+        transform: scale(1.5)
+    }
+
+
+    .name {
+        font-size: 22px;
+        font-weight: bold
+    }
+
+    .idd {
+        font-size: 14px;
+        font-weight: 600
+    }
+
+    .idd1 {
+        font-size: 12px
+    }
+
+    .number {
+        font-size: 22px;
+        font-weight: bold
+    }
+
+    .follow {
+        font-size: 12px;
+        font-weight: 500;
+        color: #444444
+    }
+
+    .btn1 {
+        height: 40px;
+        width: 150px;
+        border: none;
+        background-color: #000;
+        color: #aeaeae;
+        font-size: 15px
+    }
+
+    .text span {
+        font-size: 13px;
+        color: #545454;
+        font-weight: 500
+    }
+
+    .icons i {
+        font-size: 19px
+    }
+
+    hr .new1 {
+        border: 1px solid
+    }
+
+    .join {
+        font-size: 14px;
+        color: #a0a0a0;
+        font-weight: bold
+    }
+
+    .date {
+        background-color: #ccc
+    }
+</style>
+
+<body>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-secondary">
+                    {% if profile.profile_photo %}
+                    <img src="{{profile.profile_photo.url}}" height="100" width="100"
+                        class="rounded-circle img-thumbnail" />
+                    {% else %}
+                    <img src="{% static 'images/avatar.jpg' %}" height="100" width="100"
+                        class="rounded-circle img-thumbnail" />
+                    {% endif %}
+                </button> <span class="name mt-3">{{profile.username}}</span> <span
+                    class="idd">@{{profile.username}}</span>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span
+                        class="idd1">Oxc4c16a645_b21a</span> <span><i class="fa fa-copy"></i></span> </div>
+                <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">
+                        {{resident.neighbourhood}}
+                        <span class="follow"> Neighbourhood</span></span> </div>
+                <div class=" d-flex mt-2"> <a href="{% url 'edit-profile' profile.id %}">
+                        <button class="btn1 btn-dark">Edit Profile</button></a>
+                </div>
+                <div class="text mt-3"> <span>Eleanor Pena is a creator of minimalistic x bold graphics and digital
+                        artwork.<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div>
+                <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i
+                            class="fa-brands fa-twitter"></i></span> <span><i
+                            class="fa-brands fa-facebook-f"></i></span> <span><i
+                            class="fa-brands fa-instagram"></i></span> <span><i
+                            class="fa-brands fa-linkedin"></i></span> </div>
+                <div class=" px-2 rounded mt-4 mb-2 date "> <span class="join">Joined May,2021 </span> </div>
+                <a href="{% url 'home' %}" class=" btn btn--main "> User-Dashboard </a>
+            </div>
+        </div>
+    </div>
+</body>
 {% endblock content %}
