@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -170,7 +171,23 @@ def adminDashboard(request):
         posts = get_neighbourhood.post_set.all()
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
+
+        #all services
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
+        print(social_services)
+
+        # specific services
+        # ('bank','Bank'),('fire','Fire Department'),
+        # ('police','Police Department'),
+        # ('hospital', 'HealthCare'),  
+        # ('school','School'), 
+
+        banks = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'bank')
+        polices = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'police')
+        hospitals = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'hospital')
+        print(hospitals)
+        schools = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'school') 
+
 
         # folium map
         m = folium.Map(location=[n_lat, n_long], zoom_start=10)
