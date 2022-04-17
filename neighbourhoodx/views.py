@@ -577,7 +577,7 @@ def residentDashboard(request):
         schools = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'school') 
 
         # folium map
-        m = folium.Map(location=[n_lat, n_long], zoom_start=16)
+        m = folium.Map(location=[n_lat, n_long], zoom_start=10)
 
         #location marker
         folium.Marker([n_lat, n_long],
@@ -592,7 +592,7 @@ def residentDashboard(request):
             [n_lat, n_long],
             tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
             popup='base', 
-            radius = 300,
+            radius = 100,
             color='blue',
             fill=True,
             fill_color='aqua'
