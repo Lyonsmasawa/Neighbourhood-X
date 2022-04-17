@@ -177,12 +177,14 @@ def adminDashboard(request):
         print(social_services)
 
         # specific services
-        # ('bank','Bank'),('fire','Fire Department'),
+        # ('bank','Bank'),
+        # ('fire','Fire Department'),
         # ('police','Police Department'),
         # ('hospital', 'HealthCare'),  
         # ('school','School'), 
 
         banks = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'bank')
+        fires = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'fire')
         polices = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'police')
         hospitals = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'hospital')
         print(hospitals)
@@ -190,7 +192,7 @@ def adminDashboard(request):
 
 
         # folium map
-        m = folium.Map(location=[n_lat, n_long], zoom_start=10)
+        m = folium.Map([n_lat, n_long], zoom_start=10)
 
         #location marker
         folium.Marker([n_lat, n_long],
@@ -209,23 +211,86 @@ def adminDashboard(request):
             color='blue',
             fill=True,
             fill_color='aqua'
-            ).add_to(m)
+        ).add_to(m)
 
-        if social_services != None:
-            for service in social_services:
-                s_long = service.location[0]
-                s_lat = service.location[1]
+        # all social services map
+        # if social_services != None:
+        #     for service in social_services:
+        #         s_long = service.location[0]
+        #         s_lat = service.location[1]
 
-                folium.Marker([s_lat, s_long],
-                    popup=f'<strong>{service.name}</strong>',
+        #         folium.Marker([s_lat, s_long],
+        #             popup=f'<strong>{service.name}</strong>',
+        #             tooltip='Click here for more', 
+        #             icon=folium.Icon(icon='cloud', color='red')
+        #             ).add_to(m),
+
+        # else:
+        #     posts = None
+
+        # specific social services' map
+        # bank
+        if banks != None:
+            for bank in banks:
+                b_long = bank.location[0]
+                b_lat = bank.location[1]
+
+                folium.Marker([b_lat, b_long],
+                    popup=f'<strong>{bank.name}</strong>',
                     tooltip='Click here for more', 
-                    icon=folium.Icon(icon='cloud', color='red')
+                    icon=folium.Icon(color='orange', icon='credit-card')
                     ).add_to(m),
 
-        else:
-            posts = None
-    
+        # hospital
+        if fires != None:
+            for fire in fires:
+                f_long = fire.location[0]
+                f_lat = fire.location[1]
+
+                folium.Marker([f_lat, f_long],
+                    popup=f'<strong>{fire.name}</strong>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='red', icon='fire')
+                    ).add_to(m),
+
+        # police
+        if polices != None:
+            for police in polices:
+                p_long = police.location[0]
+                p_lat = police.location[1]
+
+                folium.Marker([p_lat, p_long],
+                    popup=f'<strong>{police.name}</strong>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='black', icon='flag')
+                    ).add_to(m),
+
+        # hospital
+        if hospitals != None:
+            for hospital in hospitals:
+                h_long = hospital.location[0]
+                h_lat = hospital.location[1]
+
+                folium.Marker([h_lat, h_long],
+                    popup=f'<strong>{hospital.name}</strong>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='purple', icon='heart')
+                    ).add_to(m),
+
+        # schools
+        if schools != None:
+            for school in schools:
+                s_long = school.location[0]
+                s_lat = school.location[1]
+
+                folium.Marker([s_lat, s_long],
+                    popup=f'<strong>{school.name}</strong>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='green', icon='book')
+                    ).add_to(m),
+                        
     else:
+        posts = None
         return redirect(setUpNeighbourhood)
 
     m = m._repr_html_() #html representation
