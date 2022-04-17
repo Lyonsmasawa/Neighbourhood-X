@@ -143,7 +143,7 @@ class SocialServices(models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     name = models.CharField(max_length = 30)
     category = models.CharField(max_length=30, choices=SOCIAL_SERVICES)
-    hotline = models.CharField(max_length = 13)
+    hotline = models.IntegerField()
     location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     address = AddressAutoHiddenField() 
     

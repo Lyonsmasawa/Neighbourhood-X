@@ -172,8 +172,9 @@ def adminDashboard(request):
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
 
-        #all services
+        #all services and businesses
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
+        businesses = Business.objects.filter(neighbourhood = get_neighbourhood)
         print(social_services)
 
         # specific services
@@ -213,6 +214,20 @@ def adminDashboard(request):
             fill_color='aqua'
         ).add_to(m)
 
+        m.add_child(folium.LatLngPopup())
+
+        # add businesses to map
+        if businesses != None:
+            for business in businesses:
+                s_long = business.location[0]
+                s_lat = business.location[1]
+
+                folium.Marker([s_lat, s_long],
+                    popup=f'<p><strong>{business.name}</strong></p> <p>Owner: <strong>{business.owner}</strong> </p> <p>{business.description}</p> <p>reach out: {business.email}</p>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='red', icon='shopping-cart',)
+                    ).add_to(m),
+
         # all social services map
         # if social_services != None:
         #     for service in social_services:
@@ -236,7 +251,7 @@ def adminDashboard(request):
                 b_lat = bank.location[1]
 
                 folium.Marker([b_lat, b_long],
-                    popup=f'<strong>{bank.name}</strong>',
+                    popup=f'<p><strong>{bank.name}</strong></p> <p>Hotline: <strong>{bank.hotline}</strong></p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='orange', icon='credit-card')
                     ).add_to(m),
@@ -248,7 +263,7 @@ def adminDashboard(request):
                 f_lat = fire.location[1]
 
                 folium.Marker([f_lat, f_long],
-                    popup=f'<strong>{fire.name}</strong>',
+                    popup=f'<p><strong>{fire.name}</strong></p> <p>Hotline: <strong>{fire.hotline}</strong></p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='red', icon='fire')
                     ).add_to(m),
@@ -260,7 +275,7 @@ def adminDashboard(request):
                 p_lat = police.location[1]
 
                 folium.Marker([p_lat, p_long],
-                    popup=f'<strong>{police.name}</strong>',
+                    popup=f'<p><strong>{police.name}</strong></p> <p>Hotline: <strong>{police.hotline}</strong></p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='black', icon='flag')
                     ).add_to(m),
@@ -272,7 +287,7 @@ def adminDashboard(request):
                 h_lat = hospital.location[1]
 
                 folium.Marker([h_lat, h_long],
-                    popup=f'<strong>{hospital.name}</strong>',
+                    popup=f'<p><strong>{hospital.name}</strong></p> <p>Hotline: <strong>{hospital.hotline}</strong></p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='purple', icon='heart')
                     ).add_to(m),
@@ -284,7 +299,7 @@ def adminDashboard(request):
                 s_lat = school.location[1]
 
                 folium.Marker([s_lat, s_long],
-                    popup=f'<strong>{school.name}</strong>',
+                    popup=f'<p><strong>{school.name}</strong></p> <p>Hotline: <strong>{school.hotline}</strong></p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='green', icon='book')
                     ).add_to(m),
@@ -573,13 +588,11 @@ def residentDashboard(request):
                 folium.Marker([s_lat, s_long],
                     popup=f'<strong>{business.name}</strong>',
                     tooltip='Click here for more', 
-                    icon=folium.Icon(icon='cloud', color='red')
+                    icon=folium.Icon(color='red', icon='shopping-cart',)
                     ).add_to(m),
-
-        else:
-            posts = None
     
     else:
+        posts = None
         return redirect(loginPage)
 
     m = m._repr_html_() #html representation
