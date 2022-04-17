@@ -611,7 +611,7 @@ def editProfile(request, pk):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(profile), pk
+            return redirect(profile, pk)
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateMemberForm(instance=resident)

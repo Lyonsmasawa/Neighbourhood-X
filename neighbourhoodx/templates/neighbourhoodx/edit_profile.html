@@ -2,45 +2,53 @@
 {% load bootstrap5 %}
 
 {% block content %}
-
-
-
-{{resident.location}}
-
-{% if user_form.errors %}
-<div class="alert alert-danger alert-dismissible" role="alert">
-    <div id="form_errors">
-        {% for key, value in user_form.errors.items %}
-        <strong>{{ value }}</strong>
-        {% endfor %}
+<div class="container-fluid bgx">
+    <h3 class="text-white bg-black p-2 mt-1"><strong>Edit your profile</strong></h3
+    {% if user_form.errors %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <div id="form_errors">
+            {% for key, value in user_form.errors.items %}
+            <strong>{{ value }}</strong>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-{% endif %}
-<div class="form-content">
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label class="small mb-1">Username:</label>
-                    {{ user_form.username }}
-                    <label class="small mb-1">Email:</label>
-                    {{ user_form.email }}
-                </div>
-                <div class="form-group">
-                    <a href="{% url 'password_change' %}">Change Password</a>
-                    <hr>
-                    <label class="small mb-1">Change Avatar:</label>
-                    {{ profile_form.avatar }}
-                </div>
+    {% endif %}
+
+    <div class="l-gx" style="max-width:40rem;">
+        <div class="container">
+            <div class="form-data">
+                <form action="" method="post" class="fm ressx">
+                    {% csrf_token %}
+                    <div class="dix">
+                        <div class="form__group">
+                            <label for="" class="fm">Username:</label>
+                            {{ user_form.username }}
+                        </div>
+                        <p></p>
+                        <div class="form__group">
+                            <label for="" class="fm">Email:</label>
+                            {{ user_form.email }}
+                        </div>
+                        <div class="form__group">
+                            <a href="{% url 'password_change' %}">Change Password</a>
+                            <hr>
+                            <label class="small mb-1">Change Avatar:</label>
+                            <p class="text-center">
+                                <img src="{{ resident.profile_photo.url }}" alt="" class="img-thumbnail">
+                            </p>
+                            {{ profile_form.profile_photo }}
+                        </div>
+                    </div>
+                    <p class="text-center">
+                        <button type="submit" class="btn btn--main sl" style="width: max-content;">Save Changes</button>
+                        <button type="reset" class="btn btn--main sl" style="width: max-content;">Reset</button>
+                    </p>
+                </form>
             </div>
         </div>
-        <br><br>
-        <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
-        <button type="reset" class="btn btn-dark btn-lg">Reset</button>
-    </form>
+    </div>
 </div>
 {% endblock content %}
