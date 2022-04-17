@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+
+{% block content %}
+{% include 'res_nav.html' %}
+<div class="ssx">
+    <div class="container-fluid">
+        <h1 class="text-center p-1"><strong>{{hood.name}} </strong> Neighbourhood</h1>
+        <h4 class="text-center">Address: {{hood.address}}</h4>
+        <h5 class="text-center">Coordinates: {{hood.location}}</h5>
+        <hr>
+        <h3 class="text-center p-1"><strong>Occupants: {{hood.occupants}}(count includes Administrator)</strong></h3>
+        <div class="row res-form ssxx">
+            {% for resident in residents %}
+            <div class="col">
+                <div class="card bg-black mb-1 brt" style="max-width: 12rem;">
+                    <div class="card-body">
+                        <a class="f-right text-decoration-none text-white" href="{% url 'delete-resident' resident.id %}"><i class="fa fa-times"
+                                aria-hidden="true"></i></a>
+                        <p>
+                            {% if resident.profile_photo %}
+                            <img src="{{resident.profile_photo.url}}" alt="" class="rounded-circle" style="width:9rem">
+                            {% else %}
+                            <img src="{% static 'images/avatar.jpg' %}" alt="" class="rounded-circle"
+                                style="width: 9rem">
+                            {%endif%}
+                        </p>
+                        <p class="card-text">Username: <strong>{{resident.user.username}}</strong></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
