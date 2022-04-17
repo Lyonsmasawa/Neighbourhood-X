@@ -527,7 +527,7 @@ def viewOtherResidents(request):
         residents = get_neighbourhood.member_set.all()
 
     context = {'residents': residents, 'hood':get_neighbourhood,}
-    return render(request, 'neighbourhoodx/residents.html', context)
+    return render(request, 'neighbourhoodx/residents_res.html', context)
 
 @login_required(login_url='login')
 def residentPost(request):
