@@ -193,7 +193,8 @@ def adminDashboard(request):
 
 
         # folium map
-        m = folium.Map([n_lat, n_long], zoom_start=10)
+        m = folium.Map([n_lat, n_long], zoom_start=15)
+        pointA = (n_lat, n_long) 
 
         #location marker
         folium.Marker([n_lat, n_long],
@@ -249,6 +250,10 @@ def adminDashboard(request):
             for bank in banks:
                 b_long = bank.location[0]
                 b_lat = bank.location[1]
+                pointB = (b_lat, b_long) 
+
+                line = folium.PolyLine([pointA, pointB], weight=1, color='orange')
+                m.add_child(line)
 
                 folium.Marker([b_lat, b_long],
                     popup=f'<p style="width:10rem;"><strong>Name: {bank.name}</strong></p> <span>Category: {bank.category}</span> <p>Hotline: <strong>{bank.hotline}</strong></p> ',
@@ -262,6 +267,11 @@ def adminDashboard(request):
                 f_long = fire.location[0]
                 f_lat = fire.location[1]
 
+                pointF = (f_lat, f_long) 
+
+                line = folium.PolyLine([pointA, pointF], weight=1, color='red')
+                m.add_child(line)
+
                 folium.Marker([f_lat, f_long],
                     popup=f'<p style="width:10rem;"><strong>Name: {fire.name}</strong></p> <span>Category: {fire.category}</span> <p>Hotline: <strong>{fire.hotline}</strong></p>',
                     tooltip='Click here for more', 
@@ -273,6 +283,11 @@ def adminDashboard(request):
             for police in polices:
                 p_long = police.location[0]
                 p_lat = police.location[1]
+
+                pointP = (p_lat, p_long) 
+
+                line = folium.PolyLine([pointA, pointP], weight=1, color='black')
+                m.add_child(line)
 
                 folium.Marker([p_lat, p_long],
                     popup=f'<p style="width:10rem;"><strong>Name: {police.name}</strong></p> <span>Category: {police.category}</span> <p>Hotline: <strong>{police.hotline}</strong></p>',
@@ -286,6 +301,11 @@ def adminDashboard(request):
                 h_long = hospital.location[0]
                 h_lat = hospital.location[1]
 
+                pointH = (h_lat, h_long) 
+
+                line = folium.PolyLine([pointA, pointH], weight=1, color='purple')
+                m.add_child(line)
+
                 folium.Marker([h_lat, h_long],
                     popup=f'<p style="width:10rem;"><strong>Name: {hospital.name}</strong></p> <span>Category: {hospital.category}</span> <p>Hotline: <strong>{hospital.hotline}</strong></p>',
                     tooltip='Click here for more', 
@@ -298,6 +318,11 @@ def adminDashboard(request):
                 s_long = school.location[0]
                 s_lat = school.location[1]
 
+                pointS = (s_lat, s_long) 
+
+                line = folium.PolyLine([pointA, pointS], weight=1, color='green')
+                m.add_child(line)
+
                 folium.Marker([s_lat, s_long],
                     popup=f'<p style="width:10rem;"><strong>Name: {school.name}</strong></p> <span>Category: {school.category}</span> <p>Hotline: <strong>{school.hotline}</strong></p>',
                     tooltip='Click here for more', 
@@ -307,6 +332,7 @@ def adminDashboard(request):
     else:
         posts = None
         return redirect(setUpNeighbourhood)
+
 
     m = m._repr_html_() #html representation
     
@@ -466,7 +492,7 @@ def adjust(request):
         if request.method == 'POST':
             form = NeighbourhoodForm(request.POST, instance = get_neighbourhood)
             if form.is_valid():
-                neighbourhood = form.save(commit=False, instance = get_neighbourhood)
+                neighbourhood = form.save(commit=False)
                 neighbourhood.admin = administrator
                 neighbourhood.save()
             return redirect(adminDashboard)
@@ -600,10 +626,10 @@ def residentDashboard(request):
 
         if businesses != None:
             for business in businesses:
-                s_long = business.location[0]
-                s_lat = business.location[1]
+                b_long = business.location[0]
+                b_lat = business.location[1]
 
-                folium.Marker([s_lat, s_long],
+                folium.Marker([b_lat, b_long],
                     popup=f'<strong>{business.name}</strong>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='red', icon='shopping-cart',)
@@ -755,15 +781,44 @@ def business(request):
 
     try:
         resident = Member.objects.get(user = user)
+        print(resident)
+        print(resident.home_location)
+
     except:
         raise Http404()
 
     get_neighbourhood = resident.neighbourhood
+    print(get_neighbourhood)
 
     if get_neighbourhood is None:
         raise Http404()
 
     else:
+        n_long = get_neighbourhood.location[0]
+        n_lat = get_neighbourhood.location[1]
+        print(n_long)
+        print(resident.home_location[0])
+
+        # # try to overide and set new location coordinates -- first try:)
+        # l_list = list(resident.home_location)
+        # print(l_list[0])
+        # l_list[0] = n_long
+        # l_list[1] = n_lat
+        # print(l_list[0])
+
+        # l_tuple = tuple(l_list)
+        # print(l_tuple)
+
+        # resident.home_location = l_tuple
+        # print(resident.home_location)
+        # resident.save()
+
+        # resident.home_location[0] = n_long
+        # resident.home_location[1] = n_lat
+        # resident.save()
+
+        Business.setCenterLocation(n_long, n_lat)
+
         if request.method == 'POST':
             form = BusinessForm(request.POST)
             if form.is_valid():

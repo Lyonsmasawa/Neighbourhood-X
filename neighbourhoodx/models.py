@@ -98,6 +98,10 @@ class Business(models.Model):
     email = models.EmailField()
     address = AddressAutoHiddenField() 
 
+    @classmethod
+    def setCenterLocation(cls, long, lat):
+        cls.location = LocationField(map_attrs={"center": [long, lat], "marker_color": "red"})
+        
     class Meta:
         """Meta definition for Business."""
 
