@@ -210,7 +210,7 @@ def adminDashboard(request):
 
 
             # folium map
-            m = folium.Map([n_lat, n_long], zoom_start=11)
+            m = folium.Map([n_lat, n_long], zoom_start=12)
 
             #location marker
             folium.Marker([n_lat, n_long],
@@ -630,186 +630,224 @@ def deleteResident(request, pk):
 ## RESIDENT SECTION
 @login_required(login_url='login')
 def residentDashboard(request):
-    user = request.user
-    resident = Member.objects.get(user = user)
-    get_neighbourhood = resident.neighbourhood
+        user = request.user
+        resident = Member.objects.get(user = user)
+        get_neighbourhood = resident.neighbourhood
 
-    if get_neighbourhood != None:
-        posts = get_neighbourhood.post_set.all()
-        n_long = get_neighbourhood.location[0]
-        n_lat = get_neighbourhood.location[1] 
-        
-        #all services and businesses
-        social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
-        businesses = Business.objects.filter(neighbourhood = get_neighbourhood)
-        print(social_services)
+        if get_neighbourhood != None:
+            posts = get_neighbourhood.post_set.all()
+            n_long = get_neighbourhood.location[0]
+            n_lat = get_neighbourhood.location[1] 
+            pointA =(n_lat, n_long)
+            
+            #all services and businesses
+            social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
+            businesses = Business.objects.filter(neighbourhood = get_neighbourhood)
+            print(social_services)
 
-        # specific services
-        # ('bank','Bank'),
-        # ('fire','Fire Department'),
-        # ('police','Police Department'),
-        # ('hospital', 'HealthCare'),  
-        # ('school','School'), 
+            # specific services
+            # ('bank','Bank'),
+            # ('fire','Fire Department'),
+            # ('police','Police Department'),
+            # ('hospital', 'HealthCare'),  
+            # ('school','School'), 
 
-        banks = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'bank')
-        fires = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'fire')
-        polices = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'police')
-        hospitals = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'hospital')
-        print(hospitals)
-        schools = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'school') 
+            banks = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'bank')
+            fires = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'fire')
+            polices = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'police')
+            hospitals = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'hospital')
+            print(hospitals)
+            schools = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'school') 
 
-        # folium map
-        m = folium.Map(location=[n_lat, n_long], zoom_start=10)
+            # folium map
+            m = folium.Map(location=[n_lat, n_long], zoom_start=11)
 
-        # add user to map
-        try:
-            get_home = resident.home_location
-        except:
-            pass
+            
 
-        if get_home != None:
-            gh_long = get_home[0]
-            gh_lat = get_home[1] 
+            # add user to map
+            try:
+                get_home = resident.home_location
+            except:
+                pass
 
-            folium.Marker([gh_lat, gh_long],
-                popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+            if get_home != None:
+                gh_long = get_home[0]
+                gh_lat = get_home[1] 
+
+                folium.Marker([gh_lat, gh_long],
+                    popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='blue', icon='pushpin',)
+                    ).add_to(m),
+
+            # add other residents to map
+            residents = get_neighbourhood.member_set.all()
+
+            # add residents to map
+            if residents != None:
+                for resident in residents:
+                    if resident.user == request.user:
+                        pass
+                    else:
+                        r_long = resident.home_location[0]
+                        r_lat = resident.home_location[1]
+                        pointR = (r_lat, r_long)
+                        distance = round(geodesic(pointA, pointR).km, 2)
+
+                        line = folium.PolyLine([pointA, pointR], weight=3, color='blue', tooltip=f'{distance} km')
+                        m.add_child(line)
+
+                        folium.Marker([r_lat, r_long],
+                            popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                            tooltip='Click here for more', 
+                            icon=folium.Icon(color='blue', icon='user',)
+                            ).add_to(m),
+
+            #location marker
+            folium.Marker([n_lat, n_long],
+                popup=f'<strong>{user.username}</strong> Neighbourhood <p>where you belong</p>',
                 tooltip='Click here for more', 
-                icon=folium.Icon(color='blue', icon='pushpin',)
-                ).add_to(m),
+                icon=folium.Icon(icon='home', color='blue')
+                ).add_to(m)
 
-        # add other residents to map
-        residents = get_neighbourhood.member_set.all()
+            
 
-        # add residents to map
-        if residents != None:
-            for resident in residents:
-                if resident.user == request.user:
-                    pass
-                else:
-                    r_long = resident.home_location[0]
-                    r_lat = resident.home_location[1]
+            folium.CircleMarker(
+                [n_lat, n_long],
+                tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood', 
+                radius = 150,
+                color='blue',
+            ).add_to(m)
 
-                    folium.Marker([r_lat, r_long],
-                        popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+            m.add_child(folium.LatLngPopup())
+
+            # add businesses to map
+            if businesses != None:
+                for business in businesses:
+                    s_long = business.location[0]
+                    s_lat = business.location[1]
+
+                    folium.Marker([s_lat, s_long],
+                        popup=f'<p><strong>{business.name}</strong></p> <p>Owner: <strong>{business.owner}</strong> </p> <p>{business.description}</p> <p>reach out: {business.email}</p>',
                         tooltip='Click here for more', 
-                        icon=folium.Icon(color='blue', icon='user',)
+                        icon=folium.Icon(color='red', icon='shopping-cart',)
                         ).add_to(m),
 
-        #location marker
-        folium.Marker([n_lat, n_long],
-            popup=f'<strong>{user.username}</strong> Neighbourhood <p>where you belong</p>',
-            tooltip='Click here for more', 
-            icon=folium.Icon(icon='home', color='blue')
-            ).add_to(m)
+            # all social services map
+            # if social_services != None:
+            #     for service in social_services:
+            #         s_long = service.location[0]
+            #         s_lat = service.location[1]
 
+            #         folium.Marker([s_lat, s_long],
+            #             popup=f'<strong>{service.name}</strong>',
+            #             tooltip='Click here for more', 
+            #             icon=folium.Icon(icon='cloud', color='red')
+            #             ).add_to(m),
+
+            # else:
+            #     posts = None
+
+            # specific social services' map
+            # bank
+            if banks != None:
+                for bank in banks:
+                    b_long = bank.location[0]
+                    b_lat = bank.location[1]
+                    pointB = (b_lat, b_long) 
+                    distance = round(geodesic(pointA, pointB).km, 2)
+                    print(distance)
+
+                    line = folium.PolyLine([pointA, pointB], weight=3, color='orange', tooltip=f'{distance} km')
+                    m.add_child(line)
+
+                    folium.Marker([b_lat, b_long],
+                        popup=f'<p style="width:10rem;"><strong>Name: {bank.name}</strong></p> <span>Category: {bank.category}</span> <p>Hotline: <strong>{bank.hotline}</strong></p> ',
+                        tooltip='Click here for more', 
+                        icon=folium.Icon(color='orange', icon='credit-card')
+                        ).add_to(m),
+
+            # hospital
+            if fires != None:
+                for fire in fires:
+                    f_long = fire.location[0]
+                    f_lat = fire.location[1]
+
+                    pointF = (f_lat, f_long) 
+                    distance = round(geodesic(pointA, pointF).km, 2)
+
+                    line = folium.PolyLine([pointA, pointF], weight=3, color='red', tooltip=f'{distance} km')
+                    m.add_child(line)
+
+                    folium.Marker([f_lat, f_long],
+                        popup=f'<p style="width:10rem;"><strong>Name: {fire.name}</strong></p> <span>Category: {fire.category}</span> <p>Hotline: <strong>{fire.hotline}</strong></p>',
+                        tooltip='Click here for more', 
+                        icon=folium.Icon(color='red', icon='fire')
+                        ).add_to(m),
+
+            # police
+            if polices != None:
+                for police in polices:
+                    p_long = police.location[0]
+                    p_lat = police.location[1]
+
+                    pointP = (p_lat, p_long) 
+                    distance = round(geodesic(pointA, pointP).km, 2)
+
+                    line = folium.PolyLine([pointA, pointP], weight=3, color='black',tooltip=f'{distance} km')
+                    m.add_child(line)
+
+                    folium.Marker([p_lat, p_long],
+                        popup=f'<p style="width:10rem;"><strong>Name: {police.name}</strong></p> <span>Category: {police.category}</span> <p>Hotline: <strong>{police.hotline}</strong></p>',
+                        tooltip='Click here for more', 
+                        icon=folium.Icon(color='black', icon='flag')
+                        ).add_to(m),
+
+            # hospital
+            if hospitals != None:
+                for hospital in hospitals:
+                    h_long = hospital.location[0]
+                    h_lat = hospital.location[1]
+
+                    pointH = (h_lat, h_long)
+                    distance = round(geodesic(pointA, pointH).km, 2)
+
+                    line = folium.PolyLine([pointA, pointH], weight=3, color='purple',tooltip=f'{distance} km')
+                    m.add_child(line)
+
+                    folium.Marker([h_lat, h_long],
+                        popup=f'<p style="width:10rem;"><strong>Name: {hospital.name}</strong></p> <span>Category: {hospital.category}</span> <p>Hotline: <strong>{hospital.hotline}</strong></p>',
+                        tooltip='Click here for more', 
+                        icon=folium.Icon(color='purple', icon='heart')
+                        ).add_to(m),
+
+            # schools
+            if schools != None:
+                for school in schools:
+                    s_long = school.location[0]
+                    s_lat = school.location[1]
+
+                    pointS = (s_lat, s_long) 
+                    distance = round(geodesic(pointA, pointS).km, 2)
+
+                    line = folium.PolyLine([pointA, pointS], weight=3, color='green', tooltip=f'{distance} km')
+                    m.add_child(line)
+
+                    folium.Marker([s_lat, s_long],
+                        popup=f'<p style="width:10rem;"><strong>Name: {school.name}</strong></p> <span>Category: {school.category}</span> <p>Hotline: <strong>{school.hotline}</strong></p>',
+                        tooltip='Click here for more', 
+                        icon=folium.Icon(color='green', icon='book')
+                        ).add_to(m),
+                            
+    
+        else:
+            posts = None
+            return redirect(loginPage)
+
+        m = m._repr_html_() #html representation
         
-
-        folium.CircleMarker(
-            [n_lat, n_long],
-            tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
-            popup='base', 
-            radius = 100,
-            color='blue',
-            fill=True,
-            fill_color='aqua'
-            ).add_to(m)
-
-        if businesses != None:
-            for business in businesses:
-                b_long = business.location[0]
-                b_lat = business.location[1]
-
-                folium.Marker([b_lat, b_long],
-                    popup=f'<strong>{business.name}</strong>',
-                    tooltip='Click here for more', 
-                    icon=folium.Icon(color='red', icon='shopping-cart',)
-                    ).add_to(m),
-
-        # all social services map
-        # if social_services != None:
-        #     for service in social_services:
-        #         s_long = service.location[0]
-        #         s_lat = service.location[1]
-
-        #         folium.Marker([s_lat, s_long],
-        #             popup=f'<strong>{service.name}</strong>',
-        #             tooltip='Click here for more', 
-        #             icon=folium.Icon(icon='cloud', color='red')
-        #             ).add_to(m),
-
-        # else:
-        #     posts = None
-
-        # specific social services' map
-        # bank
-        if banks != None:
-            for bank in banks:
-                b_long = bank.location[0]
-                b_lat = bank.location[1]
-
-                folium.Marker([b_lat, b_long],
-                    popup=f'<p style="width:10rem;"><strong>Name: {bank.name}</strong></p> <span>Category: {bank.category}</span> <p>Hotline: <strong>{bank.hotline}</strong></p> ',
-                    tooltip='Click here for more', 
-                    icon=folium.Icon(color='orange', icon='credit-card')
-                    ).add_to(m),
-
-        # hospital
-        if fires != None:
-            for fire in fires:
-                f_long = fire.location[0]
-                f_lat = fire.location[1]
-
-                folium.Marker([f_lat, f_long],
-                    popup=f'<p style="width:10rem;"><strong>Name: {fire.name}</strong></p> <span>Category: {fire.category}</span> <p>Hotline: <strong>{fire.hotline}</strong></p>',
-                    tooltip='Click here for more', 
-                    icon=folium.Icon(color='red', icon='fire')
-                    ).add_to(m),
-
-        # police
-        if polices != None:
-            for police in polices:
-                p_long = police.location[0]
-                p_lat = police.location[1]
-
-                folium.Marker([p_lat, p_long],
-                    popup=f'<p style="width:10rem;"><strong>Name: {police.name}</strong></p> <span>Category: {police.category}</span> <p>Hotline: <strong>{police.hotline}</strong></p>',
-                    tooltip='Click here for more', 
-                    icon=folium.Icon(color='black', icon='flag')
-                    ).add_to(m),
-
-        # hospital
-        if hospitals != None:
-            for hospital in hospitals:
-                h_long = hospital.location[0]
-                h_lat = hospital.location[1]
-
-                folium.Marker([h_lat, h_long],
-                    popup=f'<p style="width:10rem;"><strong>Name: {hospital.name}</strong></p> <span>Category: {hospital.category}</span> <p>Hotline: <strong>{hospital.hotline}</strong></p>',
-                    tooltip='Click here for more', 
-                    icon=folium.Icon(color='purple', icon='heart')
-                    ).add_to(m),
-
-        # schools
-        if schools != None:
-            for school in schools:
-                s_long = school.location[0]
-                s_lat = school.location[1]
-
-                folium.Marker([s_lat, s_long],
-                    popup=f'<p style="width:10rem;"><strong>Name: {school.name}</strong></p> <span>Category: {school.category}</span> <p>Hotline: <strong>{school.hotline}</strong></p>',
-                    tooltip='Click here for more', 
-                    icon=folium.Icon(color='green', icon='book')
-                    ).add_to(m),
-                        
-    
-    else:
-        posts = None
-        return redirect(loginPage)
-
-    m = m._repr_html_() #html representation
-    
-    context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
-    return render(request, 'neighbourhoodx/resident_dashboard.html', context)
+        context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
+        return render(request, 'neighbourhoodx/resident_dashboard.html', context)
 
 @login_required(login_url='login')
 def viewOtherResidents(request):
