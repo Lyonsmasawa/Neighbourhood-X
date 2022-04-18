@@ -63,10 +63,41 @@
 <div class="container-fluid admin">
     <div class="admin-blank">
         <strong class="text-center">Welcome To Neighbourhood-X</strong>
+        <div>
+            <p style="font-size: large; width: max-content;" class="bg-dark p-1">As an resident, you get to:</p>
+            <ul class="text-white" style="text-align: left;">
+                <li style="font-size: small;">You can view residents in the neighbourhood</li>
+                <li style="font-size: small;">You can add a business to the neighbourhood map</li>
+                <li style="font-size: small;">You can send alerts to other residents</li>
+            </ul>
+            <p style="font-size: large; width: max-content;" class="bg-dark p-1">Basic Map Instructions</p>
+            <ul style="text-align: left;">
+                <li style="font-size: small; list-style: upper-roman;" class="text-white">Click on a marker to get more
+                    details</li>
+                <li style="font-size: small; list-style: upper-roman;" class="text-white">Hover on the lines to see the
+                    distance from the headquarters to a given place in the neighbourhood </li>
+                <h5>MAP KEY</h5>
+                <li style="font-size: small; list-style: armenian;" class="text-white"><i class="fa fa-credit-card pq"
+                        aria-hidden="true"></i> represents bank, <i class="fa fa-home pq" aria-hidden="true"></i>
+                    represents Headquarters,
+                    <br>
+                    <i class="fa fa-shopping-cart pq" aria-hidden="true"></i> represents Business, <i class="fa fa-user pq"
+                        aria-hidden="true"></i> represents Resident,
+                    <br>
+                    <i class="fa fa-flag pq" aria-hidden="true"></i> represents Police Post, <i class="fa fa-book pq"
+                        aria-hidden="true"></i>
+                    represents School,
+                    <br>
+                    <i class="fa fa-heart pq" aria-hidden="true"></i> represents Hospital.
+                    <i class="fa fa-map-pin pq" aria-hidden="true"></i> represents your location
+
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="admin-map">
         <p class="text-center p-txt">{{hood.name}} Hood</p>
-       <strong> {{map | safe}}</strong>
+        <strong> {{map | safe}}</strong>
     </div>
 </div>
 
