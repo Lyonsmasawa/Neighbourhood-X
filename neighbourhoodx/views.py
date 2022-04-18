@@ -252,7 +252,7 @@ def adminDashboard(request):
                 b_lat = bank.location[1]
                 pointB = (b_lat, b_long) 
 
-                line = folium.PolyLine([pointA, pointB], weight=1, color='orange')
+                line = folium.PolyLine([pointA, pointB], weight=1, color='orange', tooltip=f'{bank.category}')
                 m.add_child(line)
 
                 folium.Marker([b_lat, b_long],
@@ -269,7 +269,7 @@ def adminDashboard(request):
 
                 pointF = (f_lat, f_long) 
 
-                line = folium.PolyLine([pointA, pointF], weight=1, color='red')
+                line = folium.PolyLine([pointA, pointF], weight=1, color='red', tooltip=f'{fire.category}')
                 m.add_child(line)
 
                 folium.Marker([f_lat, f_long],
@@ -286,7 +286,7 @@ def adminDashboard(request):
 
                 pointP = (p_lat, p_long) 
 
-                line = folium.PolyLine([pointA, pointP], weight=1, color='black')
+                line = folium.PolyLine([pointA, pointP], weight=1, color='black',tooltip=f'{police.category}')
                 m.add_child(line)
 
                 folium.Marker([p_lat, p_long],
@@ -303,7 +303,7 @@ def adminDashboard(request):
 
                 pointH = (h_lat, h_long) 
 
-                line = folium.PolyLine([pointA, pointH], weight=1, color='purple')
+                line = folium.PolyLine([pointA, pointH], weight=1, color='purple',tooltip=f'{hospital.category}')
                 m.add_child(line)
 
                 folium.Marker([h_lat, h_long],
@@ -320,7 +320,7 @@ def adminDashboard(request):
 
                 pointS = (s_lat, s_long) 
 
-                line = folium.PolyLine([pointA, pointS], weight=1, color='green')
+                line = folium.PolyLine([pointA, pointS], weight=1, color='green', tooltip=f'{school.category}')
                 m.add_child(line)
 
                 folium.Marker([s_lat, s_long],
