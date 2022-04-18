@@ -652,7 +652,7 @@ def residentDashboard(request):
             posts = get_neighbourhood.post_set.all()
             n_long = get_neighbourhood.location[0]
             n_lat = get_neighbourhood.location[1] 
-            pointA =(n_lat, n_long)
+            
             
             #all services and businesses
             social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
@@ -673,18 +673,22 @@ def residentDashboard(request):
             print(hospitals)
             schools = SocialServices.objects.filter(neighbourhood = get_neighbourhood, category = 'school') 
 
-            # folium map
-            m = folium.Map(location=[n_lat, n_long], zoom_start=11)
+          
 
             # add user to map
             try:
                 get_home = resident.home_location
+               
             except:
                 pass
 
             if get_home != None:
                 gh_long = get_home[0]
                 gh_lat = get_home[1] 
+
+                # folium map
+                m = folium.Map(location=[gh_lat, gh_long], zoom_start=11)
+                pointA =(gh_lat, gh_long)
 
                 folium.Marker([gh_lat, gh_long],
                     popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
