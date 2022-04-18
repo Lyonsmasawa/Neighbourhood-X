@@ -50,7 +50,7 @@ class Member(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(default='default.jpg', blank=True, )
+    profile_photo = models.ImageField(default='default.jpg')
     name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
     email = models.EmailField()

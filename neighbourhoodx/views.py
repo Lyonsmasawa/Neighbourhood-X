@@ -999,10 +999,7 @@ def editProfile(request, pk):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             prof = profile_form.save(commit=False)
-            print(request.FILES.get('img'))
-            prof.profile_photo = request.FILES.get('img')
             prof.save()
-
             return redirect('profile',  request.user.id)
     else:
         user_form = UpdateUserForm(instance=request.user)
