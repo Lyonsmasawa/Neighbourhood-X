@@ -107,8 +107,7 @@
                 <div class=" d-flex mt-2"> <a href="{% url 'edit-profile' profile.id %}">
                         <button class="btn1 btn-dark">Edit Profile</button></a>
                 </div>
-                <div class="text mt-3"> <span>Eleanor Pena is a creator of minimalistic x bold graphics and digital
-                        artwork.<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div>
+                <div class="text mt-3"> <span>{{profile.bio}}<br><br>@{{profile.username}}</span> </div>
                 <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i
                             class="fa-brands fa-twitter"></i></span> <span><i
                             class="fa-brands fa-facebook-f"></i></span> <span><i
