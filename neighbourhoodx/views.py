@@ -1,17 +1,14 @@
-from unicodedata import category
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 import random
 import string
-from urllib import request
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from geopy.distance import geodesic
-from requests import get
 from .emails import send_welcome_resident, send_welcome_email
 from .forms import BusinessForm, CustomUserForm, AdministratorForm, MemberForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
 from django.contrib.auth.decorators import login_required
@@ -93,10 +90,11 @@ def registerPage(request):
                 name = user.username
                 send_welcome_email(name, email)
                 login(request, user) 
+                return redirect(adminProfile)
 
             except:
                 login(request, user) 
-            return redirect(adminProfile)
+                return redirect(adminProfile)
 
         else:
             messages.error(request, 'please try again')

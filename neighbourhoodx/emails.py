@@ -16,7 +16,7 @@ def send_welcome_email(name,receiver):
 
 def send_welcome_resident(name,username,password,administrator,neighbourhood,receiver):
     # Creating message subject and sender
-    subject = 'Welcome to MyNeighbourhood'
+    subject = 'Welcome to Neighbourhood X'
     sender = 'renderwes@gmail.com'
 
     text_content = render_to_string('email/txt_resident.txt',{"name": name, "username":username, "password":password, "administrator":administrator, "neighbourhood":neighbourhood})
