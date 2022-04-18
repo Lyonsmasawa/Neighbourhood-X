@@ -1,5 +1,5 @@
-<h5>Hello Administrator {{name}}</h5>
+Hello Administrator {{name}}
 
-<p><strong>With great power comes great responsibility</strong></p>
+With great power comes great responsibility
 
-<p>Account created successfully</p>
+Account created successfully
