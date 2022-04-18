@@ -743,17 +743,12 @@ def residentDashboard(request):
                 for business in businesses:
                     s_long = business.location[0]
                     s_lat = business.location[1]
-                    pointBz = (s_lat, s_long)
-                    distance = round(geodesic(pointA, pointBz).km, 2)
 
                     folium.Marker([s_lat, s_long],
                         popup=f'<p><strong>{business.name}</strong></p> <p>Owner: <strong>{business.owner}</strong> </p> <p>{business.description}</p> <p>reach out: {business.email}</p>',
                         tooltip='Click here for more', 
                         icon=folium.Icon(color='pink', icon='shopping-cart',)
                         ).add_to(m),
-
-                    line = folium.PolyLine([pointA, pointBz], weight=3, color='pink', tooltip=f'{distance} km')
-                    m.add_child(line)
 
             # all social services map
             # if social_services != None:
