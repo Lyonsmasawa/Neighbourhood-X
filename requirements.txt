@@ -15,6 +15,7 @@ decorator==5.1.1
 dj-database-url==0.5.0
 Django==4.0.4
 django-bootstrap-v5==1.0.11
+django-cloudinary-storage==0.3.0
 django-heroku==0.3.1
 django-mapbox-location-field==2.0.0
 folium==0.12.1.post1
@@ -23,6 +24,7 @@ future==0.18.2
 geographiclib==1.52
 geoip2==4.5.0
 geopy==2.2.0
+gunicorn==20.1.0
 idna==3.3
 Jinja2==3.1.1
 MarkupSafe==2.1.1
