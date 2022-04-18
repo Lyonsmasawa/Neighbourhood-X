@@ -218,7 +218,7 @@ def adminDashboard(request):
             fill_color='aqua',
         ).add_to(m)
 
-        m.add_child(folium.LatLngPopup())
+        # m.add_child(folium.LatLngPopup())
 
         # add residents to map
         if residents != None:
@@ -602,7 +602,7 @@ def residentDashboard(request):
     if get_neighbourhood != None:
         posts = get_neighbourhood.post_set.all()
         n_long = get_neighbourhood.location[0]
-        n_lat = get_neighbourhood.location[1]   
+        n_lat = get_neighbourhood.location[1] 
         
         #all services and businesses
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
@@ -625,6 +625,40 @@ def residentDashboard(request):
 
         # folium map
         m = folium.Map(location=[n_lat, n_long], zoom_start=10)
+
+        # add user to map
+        try:
+            get_home = resident.home_location
+        except:
+            pass
+
+        if get_home != None:
+            gh_long = get_home[0]
+            gh_lat = get_home[1] 
+
+            folium.Marker([gh_lat, gh_long],
+                popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                tooltip='Click here for more', 
+                icon=folium.Icon(color='blue', icon='pushpin',)
+                ).add_to(m),
+
+        # add other residents to map
+        residents = get_neighbourhood.member_set.all()
+
+        # add residents to map
+        if residents != None:
+            for resident in residents:
+                if resident.user == request.user:
+                    pass
+                else:
+                    r_long = resident.home_location[0]
+                    r_lat = resident.home_location[1]
+
+                    folium.Marker([r_lat, r_long],
+                        popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                        tooltip='Click here for more', 
+                        icon=folium.Icon(color='blue', icon='user',)
+                        ).add_to(m),
 
         #location marker
         folium.Marker([n_lat, n_long],
