@@ -53,13 +53,18 @@
     padding: 1.5%;
 }
 
+.bg-tr{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .navbar-x{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-
-   
 }
 .res-form{
     border: 2px solid black;

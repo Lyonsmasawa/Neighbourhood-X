@@ -7,9 +7,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 bg-tr">
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search for ..." aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="resident name . . ." aria-label="Search" name="q">
                     <button class="btn btn--dark" type="submit">Search</button>
                 </form>
                 <li class="nav-item">
@@ -21,12 +21,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'post' %}">Create Post</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown">                        
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        More options
+                        {% if request.user.administrator.profile_photo %}
+                        <img src=" {{ request.user.administrator.profile_photo.url}}" class="rounded-circle z-depth-0" style="max-width:100%;
+                            max-height:100%;">
+                        {% else %}
+                        <i class="fa fa-user-circle"></i>
+                        {%endif%}
+                        More Options
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu mr-3" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'view-residents' %}">view Residents</a></li>
                         <li><a class="dropdown-item" href="{% url 'adjust' %}">Adjust Neighbourhood</a></li>
 
