@@ -10,6 +10,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
+from geopy.distance import geodesic
 
 from .emails import send_welcome_resident, send_welcome_email
 from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
@@ -251,8 +252,10 @@ def adminDashboard(request):
                 b_long = bank.location[0]
                 b_lat = bank.location[1]
                 pointB = (b_lat, b_long) 
+                distance = round(geodesic(pointA, pointB).km, 2)
+                print(distance)
 
-                line = folium.PolyLine([pointA, pointB], weight=1, color='orange', tooltip=f'{bank.category}')
+                line = folium.PolyLine([pointA, pointB], weight=2, color='orange', tooltip=f'{distance} km')
                 m.add_child(line)
 
                 folium.Marker([b_lat, b_long],
@@ -268,8 +271,9 @@ def adminDashboard(request):
                 f_lat = fire.location[1]
 
                 pointF = (f_lat, f_long) 
+                distance = round(geodesic(pointA, pointF).km, 2)
 
-                line = folium.PolyLine([pointA, pointF], weight=1, color='red', tooltip=f'{fire.category}')
+                line = folium.PolyLine([pointA, pointF], weight=2, color='red', tooltip=f'{distance} km')
                 m.add_child(line)
 
                 folium.Marker([f_lat, f_long],
@@ -285,8 +289,9 @@ def adminDashboard(request):
                 p_lat = police.location[1]
 
                 pointP = (p_lat, p_long) 
+                distance = round(geodesic(pointA, pointP).km, 2)
 
-                line = folium.PolyLine([pointA, pointP], weight=1, color='black',tooltip=f'{police.category}')
+                line = folium.PolyLine([pointA, pointP], weight=2, color='black',tooltip=f'{distance} km')
                 m.add_child(line)
 
                 folium.Marker([p_lat, p_long],
@@ -301,9 +306,10 @@ def adminDashboard(request):
                 h_long = hospital.location[0]
                 h_lat = hospital.location[1]
 
-                pointH = (h_lat, h_long) 
+                pointH = (h_lat, h_long)
+                distance = round(geodesic(pointA, pointH).km, 2)
 
-                line = folium.PolyLine([pointA, pointH], weight=1, color='purple',tooltip=f'{hospital.category}')
+                line = folium.PolyLine([pointA, pointH], weight=2, color='purple',tooltip=f'{distance} km')
                 m.add_child(line)
 
                 folium.Marker([h_lat, h_long],
@@ -319,8 +325,9 @@ def adminDashboard(request):
                 s_lat = school.location[1]
 
                 pointS = (s_lat, s_long) 
+                distance = round(geodesic(pointA, pointS).km, 2)
 
-                line = folium.PolyLine([pointA, pointS], weight=1, color='green', tooltip=f'{school.category}')
+                line = folium.PolyLine([pointA, pointS], weight=2, color='green', tooltip=f'{distance} km')
                 m.add_child(line)
 
                 folium.Marker([s_lat, s_long],
