@@ -1,8 +1,64 @@
 {% extends 'main.html' %}
 {% load bootstrap5 %}
-
+{% load static %}
 {% block content %}
 {% include 'res_nav.html' %}
+
+{% if count_ > 0 %}
+
+<div class="container">
+    <div class="row">
+        <style>
+            .card {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+                padding: 1rem !important
+            }
+
+            .top-container {
+                display: flex;
+                align-items: center
+            }
+
+            .name {
+                font-weight: bold;
+                color: #272727;
+                position: relative;
+                top: 8px;
+            }
+
+            .mail {
+                color: grey;
+                position: relative;
+                top: 2px;
+            }
+        </style>
+        {% for resident in residents_search %}
+        <div class="col-md-3 mb-2">
+            <div class="card">
+                <a class="f-right text-decoration-none text-white" href="{% url 'delete-resident' resident.id %}"><i
+                        class="fa fa-times text-black f-right" aria-hidden="true"></i></a>
+                <div class="top-container">
+                    {% if resident.profile_photo %}
+                    <img src="{{resident.profile_photo.url}}" alt="" class=" img-fluid img-thumbnail" width="70">
+                    {% else %}
+                    <img src="{% static 'images/avatar.jpg' %}" alt="" class=" img-fluid img-thumbnail" width="70">
+                    {%endif%}
+                </div>
+                <div class="">
+                    <h5 class="name">{{resident.user.username}}</h5>
+                    <p class="mail">{{resident.user.email}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% elif count_ == 0 %}
+<h1 class="text-center">No Residents found!!!</h1>
+
+{% else %}
 
 <div class="container-fluid admin">
     <div class="admin-blank">
@@ -32,5 +88,6 @@
     </div>
 </div>
 <br>
+{% endif %}
 <!-- {{hood.occupants}} -->
 {% endblock content %}
