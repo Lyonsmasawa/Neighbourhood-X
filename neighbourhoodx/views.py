@@ -172,7 +172,12 @@ def adminDashboard(request):
         posts = get_neighbourhood.post_set.all()
         n_long = get_neighbourhood.location[0]
         n_lat = get_neighbourhood.location[1]   
+        pointA = (n_lat, n_long)
 
+        # residents
+        residents = get_neighbourhood.member_set.all()
+        print(residents)
+    
         #all services and businesses
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
         businesses = Business.objects.filter(neighbourhood = get_neighbourhood)
@@ -195,7 +200,6 @@ def adminDashboard(request):
 
         # folium map
         m = folium.Map([n_lat, n_long], zoom_start=15)
-        pointA = (n_lat, n_long) 
 
         #location marker
         folium.Marker([n_lat, n_long],
@@ -217,6 +221,18 @@ def adminDashboard(request):
         ).add_to(m)
 
         m.add_child(folium.LatLngPopup())
+
+        # add residents to map
+        if residents != None:
+            for resident in residents:
+                r_long = resident.home_location[0]
+                r_lat = resident.home_location[1]
+
+                folium.Marker([r_lat, r_long],
+                    popup=f'<p><strong>resident: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                    tooltip='Click here for more', 
+                    icon=folium.Icon(color='blue', icon='user',)
+                    ).add_to(m),
 
         # add businesses to map
         if businesses != None:
