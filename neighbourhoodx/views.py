@@ -199,7 +199,7 @@ def adminDashboard(request):
 
 
         # folium map
-        m = folium.Map([n_lat, n_long], zoom_start=15)
+        m = folium.Map([n_lat, n_long], zoom_start=14)
 
         #location marker
         folium.Marker([n_lat, n_long],
@@ -208,16 +208,14 @@ def adminDashboard(request):
             icon=folium.Icon(icon='home', color='blue')
             ).add_to(m)
 
-        
-
         folium.CircleMarker(
             [n_lat, n_long],
             tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
             popup='Join our neighbourhood', 
-            radius = 100,
+            radius = 150,
             color='blue',
             fill=True,
-            fill_color='aqua'
+            fill_color='aqua',
         ).add_to(m)
 
         m.add_child(folium.LatLngPopup())
@@ -229,7 +227,7 @@ def adminDashboard(request):
                 r_lat = resident.home_location[1]
 
                 folium.Marker([r_lat, r_long],
-                    popup=f'<p><strong>resident: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                    popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='blue', icon='user',)
                     ).add_to(m),
