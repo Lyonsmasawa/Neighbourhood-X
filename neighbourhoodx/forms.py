@@ -38,11 +38,6 @@ class NeighbourhoodForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['admin', 'occupants']
 
-class AddResidentForm(forms.Form):
-    name = forms.CharField(label='Resident name', max_length=50)
-    username = forms.CharField(label='Username', max_length=50)
-    email = forms.EmailField()
-
 class SocialServicesForm(forms.ModelForm):
     """Form definition for SocialServices."""
 
