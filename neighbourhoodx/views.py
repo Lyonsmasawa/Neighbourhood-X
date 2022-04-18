@@ -630,10 +630,21 @@ def deleteResident(request, pk):
 ## RESIDENT SECTION
 @login_required(login_url='login')
 def residentDashboard(request):
-        user = request.user
-        resident = Member.objects.get(user = user)
-        get_neighbourhood = resident.neighbourhood
+    user = request.user
+    resident = Member.objects.get(user = user)
+    get_neighbourhood = resident.neighbourhood
 
+    q = request.GET.get('q')
+    if request.GET.get('q') != None:
+        residents_search = Member.objects.filter(
+            Q(user__username__icontains = q) 
+        )
+        count_ = residents_search.count()
+        m = None
+        get_neighbourhood = None
+        posts = None
+
+    else:
         if get_neighbourhood != None:
             posts = get_neighbourhood.post_set.all()
             n_long = get_neighbourhood.location[0]
@@ -661,8 +672,6 @@ def residentDashboard(request):
 
             # folium map
             m = folium.Map(location=[n_lat, n_long], zoom_start=11)
-
-            
 
             # add user to map
             try:
@@ -845,9 +854,11 @@ def residentDashboard(request):
             return redirect(loginPage)
 
         m = m._repr_html_() #html representation
+        residents_search = None
+        count_ = None
         
-        context = {'map': m, 'hood': get_neighbourhood, 'posts':posts}
-        return render(request, 'neighbourhoodx/resident_dashboard.html', context)
+    context = {'count_' :count_,'map': m, 'hood': get_neighbourhood, 'posts':posts, 'residents_search': residents_search}
+    return render(request, 'neighbourhoodx/resident_dashboard.html', context)
 
 @login_required(login_url='login')
 def viewOtherResidents(request):
