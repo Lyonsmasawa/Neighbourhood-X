@@ -9,9 +9,11 @@
     text-rendering: optimizeLegibility;
 
 }
-.nav-item{
+
+.nav-item {
     color: black;
 }
+
 .admin {
     height: 60vh;
     background: linear-gradient(to bottom,
@@ -40,33 +42,35 @@
     font-weight: 900;
     font-size: 1.2rem;
 }
-.p-txt{
+
+.p-txt {
     font-weight: 900;
-    font-size: 2rem; 
+    font-size: 2rem;
     background-color: rgba(255, 255, 255, 0.473);
     color: rgb(0, 0, 0);
     text-align: center;
 }
 
-.post-card{
+.post-card {
     color: black;
     padding: 1.5%;
 }
 
-.bg-tr{
+.bg-tr {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.navbar-x{
+.navbar-x {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-.res-form{
+
+.res-form {
     border: 2px solid black;
     padding: 2%;
     background-color: black;
@@ -74,7 +78,8 @@
     box-shadow: 0px 0px 5px black;
     border-radius: 4px;
 }
-.resx{
+
+.resx {
     position: absolute;
     top: 38%;
     left: 18%;
@@ -86,7 +91,8 @@
     align-items: center;
     margin-top: -5rem;
 }
-.servicesx{
+
+.servicesx {
     position: absolute;
     top: 10%;
     left: 18%;
@@ -99,7 +105,8 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-.servicessx{
+
+.servicessx {
     position: absolute;
     left: 25%;
     z-index: 2;
@@ -111,7 +118,7 @@
     margin-bottom: 1rem;
 }
 
-.ressxs{
+.ressxs {
     background-color: rgb(0, 0, 0);
     color: white;
     border: 2px solid black;
@@ -120,7 +127,7 @@
     box-shadow: 0px 0px 5px black;
 }
 
-.ssx{
+.ssx {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -129,16 +136,16 @@
     padding: 2%;
 }
 
-.f-right{
+.f-right {
     float: right;
 }
 
-.brt{
+.brt {
     border: 2px solid white;
     box-shadow: 0px 2px 5px white;
 }
 
-.neighsx{
+.neighsx {
     position: absolute;
     top: 10%;
     left: 18%;
@@ -150,6 +157,7 @@
     align-items: center;
     margin-top: 1rem;
 }
+
 /*========== components ==========*/
 
 
@@ -191,10 +199,12 @@
     background-color: white;
     color: black;
 }
+
 .btn-transparent {
     background-color: transparent;
     border: none;
 }
+
 .btn-dark {
     border-radius: 0%;
     line-height: normal;
@@ -205,6 +215,7 @@
     font-weight: 900;
     white-space: nowrap;
 }
+
 /*==============================
 =>  Delete Item
 ================================*/
@@ -257,27 +268,31 @@
 
 /* login */
 
-.fm{
+.fm {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
-.form-data{
+
+.form-data {
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
 }
-.formdata{
+
+.formdata {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
 .form__group {
     margin-bottom: 2rem;
     width: 100%;
 }
-.bgx{
+
+.bgx {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -289,7 +304,7 @@
     background-repeat: no-repeat;
 }
 
-.l-gx{
+.l-gx {
     display: flex;
     padding: 2%;
     align-items: center;
@@ -297,7 +312,7 @@
     text-align: center;
 }
 
-.p-gx{
+.p-gx {
     display: flex;
     padding: 2%;
 
@@ -306,7 +321,7 @@
     text-align: center;
 }
 
-.ressx{
+.ressx {
     border-left: 5px solid black;
     border-right: 5px solid black;
     border-bottom: 5px solid black;
@@ -315,7 +330,8 @@
     background-color: black;
     box-shadow: 0px 0px 5px black;
 }
-.dix{
+
+.dix {
     padding: 2%;
 }
 
@@ -391,6 +407,7 @@
 .form__avatar label:hover {
     text-decoration: underline;
 }
+
 .form-btn {
     margin: 1rem 0 1.5rem;
     height: 3rem;
@@ -409,12 +426,15 @@
     position: relative;
     margin-bottom: 2rem;
 }
-.sl{
+
+.sl {
     box-shadow: 0px 0px 1px rgb(0, 238, 255);
 }
-.pcv{
+
+.pcv {
     box-shadow: 0px 0px 4px rgb(211, 252, 255);
 }
+
 .btn>svg {
     fill: black;
     width: 1.6rem;
@@ -447,17 +467,19 @@
     padding: 1rem 0;
     margin: .5rem 0;
 }
-.sd{
+
+.sd {
     background-color: white;
     color: black;
 }
+
 .sign-up a {
     color: black;
     font-weight: 900;
     font-size: 1rem;
 }
 
-.pbf{
+.pbf {
     display: flex;
     flex-direction: column;
     align-items: center;
