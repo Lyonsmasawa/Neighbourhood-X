@@ -11,9 +11,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from geopy.distance import geodesic
-
 from .emails import send_welcome_resident, send_welcome_email
-from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, MemberForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
+from .forms import BusinessForm, CustomUserForm, AdministratorForm, MemberForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SocialServices, Member, Post, Business
 import folium
@@ -175,12 +174,12 @@ def adminDashboard(request):
 
         # residents
         residents = get_neighbourhood.member_set.all()
-        print(residents)
+        # print(residents)
     
         #all services and businesses
         social_services = SocialServices.objects.filter(neighbourhood = get_neighbourhood)
         businesses = Business.objects.filter(neighbourhood = get_neighbourhood)
-        print(social_services)
+        # print(social_services)
 
         # specific services
         # ('bank','Bank'),
@@ -388,7 +387,7 @@ def addResident(request):
                 new_list = request.POST.get('home_location')
 
                 # reverse latitude and longitude
-                print(new_list)
+                # print(new_list)
                 new = new_list.split(",")
                 loc = reversed(new)
                 str = ""
