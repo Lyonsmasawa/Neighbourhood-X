@@ -210,7 +210,7 @@ def adminDashboard(request):
 
 
             # folium map
-            m = folium.Map([n_lat, n_long], zoom_start=14)
+            m = folium.Map([n_lat, n_long], zoom_start=11)
 
             #location marker
             folium.Marker([n_lat, n_long],
@@ -221,12 +221,9 @@ def adminDashboard(request):
 
             folium.CircleMarker(
                 [n_lat, n_long],
-                tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood',
-                popup='Join our neighbourhood', 
+                tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood', 
                 radius = 150,
                 color='blue',
-                fill=True,
-                fill_color='aqua',
             ).add_to(m)
 
             m.add_child(folium.LatLngPopup())
@@ -236,6 +233,11 @@ def adminDashboard(request):
                 for resident in residents:
                     r_long = resident.home_location[0]
                     r_lat = resident.home_location[1]
+                    pointR = (r_lat, r_long)
+                    distance = round(geodesic(pointA, pointR).km, 2)
+
+                    line = folium.PolyLine([pointA, pointR], weight=3, color='blue', tooltip=f'{distance} km')
+                    m.add_child(line)
 
                     folium.Marker([r_lat, r_long],
                         popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
@@ -280,7 +282,7 @@ def adminDashboard(request):
                     distance = round(geodesic(pointA, pointB).km, 2)
                     print(distance)
 
-                    line = folium.PolyLine([pointA, pointB], weight=2, color='orange', tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointB], weight=3, color='orange', tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([b_lat, b_long],
@@ -298,7 +300,7 @@ def adminDashboard(request):
                     pointF = (f_lat, f_long) 
                     distance = round(geodesic(pointA, pointF).km, 2)
 
-                    line = folium.PolyLine([pointA, pointF], weight=2, color='red', tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointF], weight=3, color='red', tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([f_lat, f_long],
@@ -316,7 +318,7 @@ def adminDashboard(request):
                     pointP = (p_lat, p_long) 
                     distance = round(geodesic(pointA, pointP).km, 2)
 
-                    line = folium.PolyLine([pointA, pointP], weight=2, color='black',tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointP], weight=3, color='black',tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([p_lat, p_long],
@@ -334,7 +336,7 @@ def adminDashboard(request):
                     pointH = (h_lat, h_long)
                     distance = round(geodesic(pointA, pointH).km, 2)
 
-                    line = folium.PolyLine([pointA, pointH], weight=2, color='purple',tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointH], weight=3, color='purple',tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([h_lat, h_long],
@@ -352,7 +354,7 @@ def adminDashboard(request):
                     pointS = (s_lat, s_long) 
                     distance = round(geodesic(pointA, pointS).km, 2)
 
-                    line = folium.PolyLine([pointA, pointS], weight=2, color='green', tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointS], weight=3, color='green', tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([s_lat, s_long],
