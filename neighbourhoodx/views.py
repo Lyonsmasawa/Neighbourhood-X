@@ -747,7 +747,7 @@ def residentDashboard(request):
                     folium.Marker([s_lat, s_long],
                         popup=f'<p><strong>{business.name}</strong></p> <p>Owner: <strong>{business.owner}</strong> </p> <p>{business.description}</p> <p>reach out: {business.email}</p>',
                         tooltip='Click here for more', 
-                        icon=folium.Icon(color='pink', icon='shopping-cart',)
+                        icon=folium.Icon(color='red', icon='shopping-cart',)
                         ).add_to(m),
 
             # all social services map
