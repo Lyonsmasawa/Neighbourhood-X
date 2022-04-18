@@ -217,7 +217,7 @@ def adminDashboard(request):
             fill_color='aqua',
         ).add_to(m)
 
-        # m.add_child(folium.LatLngPopup())
+        m.add_child(folium.LatLngPopup())
 
         # add residents to map
         if residents != None:
@@ -379,20 +379,40 @@ def addResident(request):
     else:
         if request.method == 'POST':
             form = MemberForm(request.POST)
+            # print(form)
             if form.is_valid():
-                name = form.cleaned_data['name']
-                username = form.cleaned_data['username']
-                email = form.cleaned_data['email']
+                new_res = form.save(commit=False)
+                new_res.name = form.cleaned_data['name']
+                new_res.username = form.cleaned_data['username']
+                new_res.email = form.cleaned_data['email']
+                new_list = request.POST.get('home_location')
+
+                # reverse latitude and longitude
+                print(new_list)
+                new = new_list.split(",")
+                loc = reversed(new)
+                str = ""
+                for i in loc:
+                    str += i + ","
+                    print(i)
+                # print(str)
+                reverse_lat_len = list(str)
+                # print(reverse_lat_len)
+                reverse_lat_len.pop()
+                # print(f)
+                reverse_lat_len = ''.join(reverse_lat_len)
+                print(reverse_lat_len)
+
+                new_res.home_location = reverse_lat_len
+                new_res.neighbourhood = get_neighbourhood
 
                 #generates random password for the resident
                 password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
                 # creates user with the given details and returns it
-                resident_user = User.objects.create_user(username = username, email = email, password = password)
-
-                #save as a member of the neighbourhood
-                member = Member(user=resident_user, neighbourhood=get_neighbourhood)
-                member.save()
+                resident_user = User.objects.create_user(username = new_res.username, email = new_res.email, password = password)
+                new_res.user = resident_user
+                new_res.save()               
                 
                 #increase the residents count
                 members = Member.objects.filter(neighbourhood = get_neighbourhood)
@@ -401,7 +421,7 @@ def addResident(request):
                 get_neighbourhood.save()
                 
                 #send email to resident
-                send_welcome_resident(name,username,password,administrator.user.username ,get_neighbourhood.name, email)
+                send_welcome_resident(new_res.name,new_res.username,password,administrator.user.username ,get_neighbourhood.name, new_res.email)
             
             return redirect(adminDashboard)
 
