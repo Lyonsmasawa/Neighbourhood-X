@@ -2,7 +2,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
 def send_welcome_email(name,receiver):
-    # create subject and sender
+    # subject and sender
     subject = 'Administrator Registration Successful'
     sender = 'renderwes@gmail.com'
 
@@ -15,7 +15,7 @@ def send_welcome_email(name,receiver):
 
 
 def send_welcome_resident(name,username,password,administrator,neighbourhood,receiver):
-    # Creating message subject and sender
+    # subject and sender
     subject = 'Welcome to Neighbourhood X'
     sender = 'renderwes@gmail.com'
 
