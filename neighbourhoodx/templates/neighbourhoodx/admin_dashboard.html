@@ -4,36 +4,36 @@
 {% block content %}
 {% include 'admin_nav.html' %}
 
-<style>
-    .card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
-        padding: 1rem !important
-    }
-
-    .top-container {
-        display: flex;
-        align-items: center
-    }
-
-    .name {
-        font-weight: bold;
-        color: #272727;
-        position: relative;
-        top: 8px;
-    }
-
-    .mail {
-        color: grey;
-        position: relative;
-        top: 2px;
-    }
-</style>
-{% if count_ >= 0 %}
+{% if count_ > 0 %}
 
 <div class="container">
     <div class="row">
+        <style>
+            .card {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+                padding: 1rem !important
+            }
+
+            .top-container {
+                display: flex;
+                align-items: center
+            }
+
+            .name {
+                font-weight: bold;
+                color: #272727;
+                position: relative;
+                top: 8px;
+            }
+
+            .mail {
+                color: grey;
+                position: relative;
+                top: 2px;
+            }
+        </style>
         {% for resident in residents_search %}
         <div class="col-md-3 mb-2">
             <div class="card">
@@ -56,7 +56,7 @@
     </div>
 </div>
 {% elif count_ == 0 %}
-<p class="text-center">No user found!!!</p>
+<h1 class="text-center">No Residents found!!!</h1>
 
 {% else %}
 <div class="container-fluid admin">
