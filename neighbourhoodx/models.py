@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from mapbox_location_field.models import LocationField,  AddressAutoHiddenField
@@ -16,17 +17,6 @@ class Administrator(models.Model):
 
         verbose_name = 'Administrator'
         verbose_name_plural = 'Administrators'
-
-    # resizing images
-    def save(self, *args, **kwargs):
-        super().save()
-
-        img = Image.open(self.profile_photo.path)
-
-        if img.height > 100 or img.width > 100:
-            new_img = (100, 100)
-            img.thumbnail(new_img)
-            img.save(self.profile_photo.path)
 
 
     def __str__(self):
@@ -59,11 +49,14 @@ class Member(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(default='default.jpg')
-    # bio =models.TextField()
+    profile_photo = models.ImageField(default='default.jpg', blank=True)
+    name = models.CharField(max_length=20)
+    username = models.CharField(max_length=20)
+    email = models.EmailField()
+    bio = models.TextField(blank=True, null=True)
     home_location = LocationField(map_attrs={"center": [36.74,  -1.39], "marker_color": "red"})
     address = AddressAutoHiddenField() 
-   
+    joined = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         """Meta definition for Member."""
@@ -71,7 +64,7 @@ class Member(models.Model):
         verbose_name = 'Member'
         verbose_name_plural = 'Members'
 
-    # resizing images # joined = models.DateTimeField(auto_now_add=True)
+    # resizing images # 
     def save(self, *args, **kwargs):
         super().save()
 

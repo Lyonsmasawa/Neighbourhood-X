@@ -18,6 +18,16 @@ class AdministratorForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['user',]
 
+class MemberForm(forms.ModelForm):
+    """Form definition for Member."""
+
+    class Meta:
+        """Meta definition for Memberform."""
+
+        model = Member
+        fields = '__all__'
+        exclude = ['user','neighbourhood','bio','profile_photo',]
+
 class NeighbourhoodForm(forms.ModelForm):
     """Form definition for Neighbourhood."""
 

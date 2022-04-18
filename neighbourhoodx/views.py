@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from geopy.distance import geodesic
 
 from .emails import send_welcome_resident, send_welcome_email
-from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
+from .forms import AddResidentForm, BusinessForm, CustomUserForm, AdministratorForm, MemberForm, NeighbourhoodForm, PostForm, SocialServicesForm, UpdateMemberForm, UpdateUserForm
 from django.contrib.auth.decorators import login_required
 from .models import Administrator, Neighbourhood, SocialServices, Member, Post, Business
 import folium
@@ -91,7 +91,6 @@ def registerPage(request):
                 email = user.email
                 name = user.username
                 send_welcome_email(name, email)
-
                 login(request, user) 
 
             except:
@@ -379,7 +378,7 @@ def addResident(request):
 
     else:
         if request.method == 'POST':
-            form = AddResidentForm(request.POST)
+            form = MemberForm(request.POST)
             if form.is_valid():
                 name = form.cleaned_data['name']
                 username = form.cleaned_data['username']
@@ -388,7 +387,7 @@ def addResident(request):
                 #generates random password for the resident
                 password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
-                # creates user with the given details
+                # creates user with the given details and returns it
                 resident_user = User.objects.create_user(username = username, email = email, password = password)
 
                 #save as a member of the neighbourhood
@@ -407,7 +406,7 @@ def addResident(request):
             return redirect(adminDashboard)
 
         else:
-            form = AddResidentForm()
+            form = MemberForm()
       
     context = {'form': form, 'hood':get_neighbourhood,}
     return render(request, 'neighbourhoodx/add_resident.html', context)

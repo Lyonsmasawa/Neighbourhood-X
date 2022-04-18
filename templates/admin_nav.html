@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid navbar-x">
-        <a class="navbar-brand" href="{% url 'adminDashboard' %}"><strong>Admin: {{hood.admin.user.username | upper}} </strong></a>
+        <a class="navbar-brand" href="{% url 'adminDashboard' %}"><strong>Admin: {{hood.admin.user.username | upper}}
+            </strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'social-services' %}">Add Social Service</a>
                 </li>
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'post' %}">Create Post</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -28,8 +29,12 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'view-residents' %}">view Residents</a></li>
                         <li><a class="dropdown-item" href="{% url 'adjust' %}">Adjust Neighbourhood</a></li>
+
+                        {% if hood %}
                         <li><a class="dropdown-item" href="{% url 'delete-neighbourhood' hood.id %}">Delete
                                 Neighbourhood</a></li>
+                        {% else %}
+                        {% endif %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
