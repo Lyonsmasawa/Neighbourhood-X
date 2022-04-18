@@ -9,7 +9,7 @@ def send_welcome_email(name,receiver):
     text_content = render_to_string('email/txt_admin.txt',{"name": name})
     html_content = render_to_string('email/txt_admin.html',{"name": name})
 
-    msg = EmailMultiAlternatives(subject ,text_content ,sender,[receiver])
+    msg = EmailMultiAlternatives(subject ,text_content,sender,[receiver])
     msg.attach_alternative(html_content,'text/html')
     msg.send()
 
