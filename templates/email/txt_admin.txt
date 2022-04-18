@@ -3,4 +3,3 @@
 <p><strong>With great power comes great responsibility</strong></p>
 
 <p>Account created successfully</p>
-
