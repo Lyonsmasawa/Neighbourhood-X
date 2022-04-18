@@ -25,7 +25,7 @@
                     <div class="layout__boxHeader">
                         <div class="layout__boxTitle">
                             <a href="{{request.META.HTTP_REFERER}}">
-                                <i class="btn btn--dark text-decoration-none fa fa-backward" >Back</i>
+                                <i class="btn btn--dark text-decoration-none fa fa-backward">Back</i>
                             </a>
                         </div>
                     </div>
@@ -46,7 +46,11 @@
                         <hr>
                         <label class="small mb-1">Change Avatar:</label>
                         <p class="text-center">
+
+                            {% if resident.profile_photo %}
                             <img src="{{ resident.profile_photo.url }}" alt="" class="img-thumbnail">
+                            {% endif %}
+
                         </p>
                         {{ profile_form.profile_photo }}
                     </div>
@@ -56,8 +60,10 @@
                     </div>
                 </div>
                 <p class="text-center">
-                    <button type="submit" class="btn btn--main sl bg-white text-black" style="width: max-content;">Save Changes</button>
-                    <button type="reset" class="btn btn--main sl bg-white text-black" style="width: max-content;">Reset</button>
+                    <button type="submit" class="btn btn--main sl bg-white text-black" style="width: max-content;">Save
+                        Changes</button>
+                    <button type="reset" class="btn btn--main sl bg-white text-black"
+                        style="width: max-content;">Reset</button>
                 </p>
             </form>
         </div>

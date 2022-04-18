@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
@@ -49,7 +50,7 @@ class Member(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(default='default.jpg', blank=True)
+    profile_photo = models.ImageField(default='default.jpg', blank=True, )
     name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
     email = models.EmailField()
@@ -64,16 +65,16 @@ class Member(models.Model):
         verbose_name = 'Member'
         verbose_name_plural = 'Members'
 
-    # resizing images # 
-    def save(self, *args, **kwargs):
-        super().save()
+    # # resizing images # 
+    # def save(self, *args, **kwargs):
+    #     super().save()
 
-        img = Image.open(self.profile_photo.path)
+    #     img = Image.open(self.profile_photo.path)
 
-        if img.height > 100 or img.width > 100:
-            new_img = (100, 100)
-            img.thumbnail(new_img)
-            img.save(self.profile_photo.path)
+    #     if img.height > 100 or img.width > 100:
+    #         new_img = (100, 100)
+    #         img.thumbnail(new_img)
+    #         img.save(self.profile_photo.path)
 
     def __str__(self):
         """Unicode representation of Member."""
