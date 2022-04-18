@@ -253,7 +253,7 @@ def adminDashboard(request):
                     folium.Marker([s_lat, s_long],
                         popup=f'<p><strong>{business.name}</strong></p> <p>Owner: <strong>{business.owner}</strong> </p> <p>{business.description}</p> <p>reach out: {business.email}</p>',
                         tooltip='Click here for more', 
-                        icon=folium.Icon(color='red', icon='shopping-cart',)
+                        icon=folium.Icon(color='green', icon='shopping-cart',)
                         ).add_to(m),
 
             # all social services map
@@ -353,13 +353,13 @@ def adminDashboard(request):
                     pointS = (s_lat, s_long) 
                     distance = round(geodesic(pointA, pointS).km, 2)
 
-                    line = folium.PolyLine([pointA, pointS], weight=3, color='green', tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointS], weight=3, color='gray', tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([s_lat, s_long],
                         popup=f'<p style="width:10rem;"><strong>Name: {school.name}</strong></p> <span>Category: {school.category}</span> <p>Hotline: <strong>{school.hotline}</strong></p>',
                         tooltip='Click here for more', 
-                        icon=folium.Icon(color='green', icon='book')
+                        icon=folium.Icon(color='gray', icon='book')
                         ).add_to(m),
                             
         else:
@@ -744,7 +744,7 @@ def residentDashboard(request):
                     folium.Marker([s_lat, s_long],
                         popup=f'<p><strong>{business.name}</strong></p> <p>Owner: <strong>{business.owner}</strong> </p> <p>{business.description}</p> <p>reach out: {business.email}</p>',
                         tooltip='Click here for more', 
-                        icon=folium.Icon(color='red', icon='shopping-cart',)
+                        icon=folium.Icon(color='green', icon='shopping-cart',)
                         ).add_to(m),
 
             # all social services map
@@ -844,13 +844,13 @@ def residentDashboard(request):
                     pointS = (s_lat, s_long) 
                     distance = round(geodesic(pointA, pointS).km, 2)
 
-                    line = folium.PolyLine([pointA, pointS], weight=3, color='green', tooltip=f'{distance} km')
+                    line = folium.PolyLine([pointA, pointS], weight=3, color='gray', tooltip=f'{distance} km')
                     m.add_child(line)
 
                     folium.Marker([s_lat, s_long],
                         popup=f'<p style="width:10rem;"><strong>Name: {school.name}</strong></p> <span>Category: {school.category}</span> <p>Hotline: <strong>{school.hotline}</strong></p>',
                         tooltip='Click here for more', 
-                        icon=folium.Icon(color='green', icon='book')
+                        icon=folium.Icon(color='gray', icon='book')
                         ).add_to(m),
                             
     

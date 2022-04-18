@@ -41,7 +41,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # SECURITY WARNING: don't run with debug turned on in production!
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
