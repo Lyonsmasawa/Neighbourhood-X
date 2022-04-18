@@ -159,7 +159,8 @@ def adminDashboard(request):
     q = request.GET.get('q')
     if request.GET.get('q') != None:
         residents_search = Member.objects.filter(
-            Q(user__username__icontains = q) 
+            Q(user__username__icontains = q)&
+            Q(neighbourhood = get_neighbourhood)
         )
         count_ = residents_search.count()
         m = None
