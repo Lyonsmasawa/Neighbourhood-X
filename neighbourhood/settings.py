@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from decouple import config,Csv
+import django_heroku
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -34,13 +35,13 @@ cloudinary.config(
 )
 
 MAPBOX_KEY=config('MAPBOX_KEY')
+CLOUDINARY_URL=config('CLOUDINARY_URL')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', False)
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,9 +54,11 @@ INSTALLED_APPS = [
     'neighbourhoodx.apps.NeighbourhoodxConfig',
     'bootstrap5',
     'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,10 +140,14 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
       BASE_DIR / 'static'
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # configuring the location for media
 MEDIA ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Email configurations remember to install python-decouple
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
@@ -149,7 +156,7 @@ MAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-
+django_heroku.settings(locals())
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

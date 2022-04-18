@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from mapbox_location_field.models import LocationField,  AddressAutoHiddenField
 from PIL import Image
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Administrator(models.Model):
@@ -11,7 +12,7 @@ class Administrator(models.Model):
 
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_photo = models.ImageField()
+    profile_photo = CloudinaryField('image', blank=True)
 
     class Meta:
         """Meta definition for Administrator."""
@@ -50,7 +51,7 @@ class Member(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(default='default.jpg')
+    profile_photo = CloudinaryField('image',default='default.jpg', blank=True)
     name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
     email = models.EmailField()
