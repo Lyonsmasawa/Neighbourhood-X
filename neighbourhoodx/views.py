@@ -86,12 +86,15 @@ def registerPage(request):
             Administrator.objects.create(user = user)
 
        
-            email = user.email
-            name = user.username
-            send_welcome_email(name, email)
-            login(request, user) 
-            return redirect(adminProfile)
-
+            try:
+                email = user.email
+                name = user.username
+                send_welcome_email(name, email)
+                login(request, user) 
+                return redirect(adminProfile)
+            except:
+                login(request, user) 
+                return redirect(adminProfile)
         else:
             messages.error(request, 'please try again')
     else:
