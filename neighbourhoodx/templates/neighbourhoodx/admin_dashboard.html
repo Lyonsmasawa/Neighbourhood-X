@@ -106,7 +106,7 @@
         {% for post in posts %}
         <div class="col-md-3">
             <div class="card text-white bg-black mb-4 p-1" style="max-width: 15rem; max-height: 9rem; font-size: small;">
-                <div class="card-header">{{post.posted | timesince}}</div>
+                <div class="card-header">{{post.posted | timesince}} ago</div>
                 <div class="card-body">
                     <h5 class="card-title card post-card" style="font-size: small;">{{post.body}}</h5>
                     <p class="card-text">By: {{post.poster}}</p>
