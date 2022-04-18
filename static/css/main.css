@@ -16,7 +16,7 @@
 
 .admin {
     height: 60vh;
-    background: linear-gradient(to bottom,
+    background: linear-gradient(-45deg,
             rgba(0, 153, 145, 0),
             rgba(0, 0, 0, 70)), url('../images/adminbg.jpg');
     background-size: cover;
