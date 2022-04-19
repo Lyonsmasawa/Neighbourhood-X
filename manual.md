@@ -21,7 +21,7 @@ This is a web application that allows you to be in the loop about everything hap
 
 ### Administrator Dashboard
 - Get details by Clicking on markers
-  <img src="peek/admin.png">
+  <img src="/neighbourhood/peeks/admin.png">
 
 ### Add Resident
 - click on Add Resident in the navigation bar
