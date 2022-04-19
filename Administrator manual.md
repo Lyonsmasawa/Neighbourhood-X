@@ -12,12 +12,12 @@ This is a web application that allows you to be in the loop about everything hap
 ### Register view
 - Enter your respective details
 - click on Administrator set up and check your email for instructions
-<img src="reg.png">
+<img src="peeks/reg.png">
 
 ### Set Up Neighbourhood
 - Enter neighbourhood Name
 - mark a Location on the map where you want your headquarters to be.
-  <img src="set.png">
+  <img src="peeks/set.png">
 
 ### Administrator Dashboard
 - Get details by Clicking on markers
@@ -27,23 +27,23 @@ This is a web application that allows you to be in the loop about everything hap
 - click on Add Resident in the navigation bar
 - The login credentials will be auto-generated and sent to the added resident through the EMAIL entered so ensure it is REAL and the CORRECT email address of the resident.
 - Please add Resident location to map accordingly(click to get latitude and longitude first and add resident's home location accordingly)
-  <img src="addres.png">
+  <img src="peeks/addres.png">
 
 ### Add Social Service
 - click on Add Social Service Center in the navigation bar
-  <img src="addsoc.png">
+  <img src="peeks/addsoc.png">
 
 ### Adjust Neighbourhood Details
 - click on Adjust in the navigation bar
-  <img src="adj.png">
+  <img src="peeks/adj.png">
 
 ### View Residents
 - click on view residents in the navigation bar
-  <img src="ress.png">
+  <img src="peeks/ress.png">
 
 ### Delete resident
 - Delete Resident by clicking on the times icon in the view residents page
-  <img src="delres.png">
+  <img src="peeks/delres.png">
 
 ### Delete Post
 - Delete a Post by clicking on the times icon on the specific post card
