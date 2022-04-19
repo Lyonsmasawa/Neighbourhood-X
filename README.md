@@ -79,7 +79,7 @@ The following languages have been used on this project:
 
 ## Setup/Installation Requirements
 
-- Click to view <a target="_blank" href="https://neighbourhoodxl.herokuapp.com/">NeighbourhoodX</a>
+- Click to view <a href="#" onclick='window.open("https://www.neighbourhoodxl.herokuapp.com/"); return False;'>NeighbourhoodX</a>
  
 ## Known Bugs
 
