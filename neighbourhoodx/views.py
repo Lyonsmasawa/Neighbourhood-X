@@ -1009,6 +1009,21 @@ def editProfile(request, pk):
 
     return render(request, 'neighbourhoodx/edit_profile.html', context)
 
+@login_required(login_url='login')
+def deletePost(request, pk):
+    post = Post.objects.get(id=pk)
+
+    if request.user != post.poster:
+        return HttpResponse('This method is restricted')
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect(adminDashboard)
+    
+    context = {'obj':post}
+    return render(request, 'neighbourhoodx/delete_post.html', context)
+
+
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'neighbourhoodx/change_password.html'
     success_message = "Successfully Changed Your Password"

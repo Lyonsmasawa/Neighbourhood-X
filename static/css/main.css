@@ -29,6 +29,7 @@
 .text-redx{
     color: red;
     font-weight: 900;
+    text-transform: uppercase;
 }
 .admin-blank {
     height: 60vh;

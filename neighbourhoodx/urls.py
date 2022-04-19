@@ -29,6 +29,7 @@ urlpatterns = [
     path('business/', views.business, name="business"),
     path('profile/<str:pk>/', views.profile, name="profile"),
     path('edit-profile/<str:pk>/', views.editProfile, name="edit-profile"),
+    path('delete-post/<str:pk>/', views.deletePost, name="delete-post"),
     path('password-change/', views.ChangePasswordView.as_view(), name='password_change'),
     path('password-reset/', views.ResetPasswordView.as_view(), name='password_reset'),
     path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
