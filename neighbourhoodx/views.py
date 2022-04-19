@@ -526,6 +526,17 @@ def post(request):
     return render(request, 'neighbourhoodx/add_post.html', context)
 
 @login_required(login_url='login')
+def deleteAnyPost(request, pk):
+    post = Post.objects.get(id=pk)
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect(adminDashboard)
+    
+    context = {'obj':post}
+    return render(request, 'neighbourhoodx/delete_post.html', context)
+
+@login_required(login_url='login')
 def adjust(request):
     user = request.user
 
@@ -1018,10 +1029,12 @@ def deletePost(request, pk):
 
     if request.method == 'POST':
         post.delete()
-        return redirect(adminDashboard)
+        return redirect(residentDashboard)
     
     context = {'obj':post}
     return render(request, 'neighbourhoodx/delete_post.html', context)
+
+
 
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):

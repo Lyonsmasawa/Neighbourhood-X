@@ -108,9 +108,24 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-3">
+            <style>
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            </style>
             <div class="card text-white bg-black mb-4 p-1"
                 style="max-width: 15rem; max-height: 9rem; font-size: small;">
-                <div class="card-header">{{post.posted | timesince}} ago</div>
+                <div class="card-header">
+                    <div class="">{{post.posted | timesince}} ago</div>
+                    <div class="">
+                        <span>
+                            <a href="{% url 'delete-any-post' post.id %}"><i
+                                    class="fa fa-times f-right text-white"></i></a>
+                        </span>
+                    </div>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title card post-card" style="font-size: small;">{{post.body}}</h5>
                     <p class="card-text">By: {{post.poster}}</p>

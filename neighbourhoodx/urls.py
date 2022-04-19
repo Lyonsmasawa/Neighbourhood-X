@@ -18,6 +18,7 @@ urlpatterns = [
     path('view-residents/', views.viewResidents, name="view-residents"),
     path('social-services/', views.socialServices, name="social-services"),
     path('post/', views.post, name="post"),
+    path('delete-any-post/<str:pk>/', views.deleteAnyPost, name="delete-any-post"),
     path('adjust/', views.adjust, name="adjust"),
     path('delete/<str:pk>/', views.deleteNeighbourhood, name="delete-neighbourhood"),
     path('delete-resident/<str:pk>/', views.deleteResident, name="delete-resident"),
