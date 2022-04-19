@@ -28,11 +28,7 @@ This is a web application that allows you to be in the loop about everything hap
 <img src="resx.png">
 
 ### Profile
-<img src="profile.png">
-
-### Another user profile view
-<img src="another.png"> 
-
+<img src="peeks/profile.png">
 
 ## Setup Requirements
 

@@ -35,7 +35,7 @@ This is a web application that allows you to be in the loop about everything hap
 
 ### Adjust Neighbourhood Details
 - click on Adjust in the navigation bar
-  <img src="peeks/adj.png">
+  <img src="peeks/set.png">
 
 ### View Residents
 - click on view residents in the navigation bar
