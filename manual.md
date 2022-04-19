@@ -45,6 +45,10 @@ This is a web application that allows you to be in the loop about everything hap
 - Delete Resident by clicking on the times icon in the view residents page
   <img src="delres.png">
 
+### Delete Post
+- Delete a Post by clicking on the times icon on the specific post card
+  <img src="delpost.png">
+  
 ## Author
 - LYONS ALBERT
 - Email: lyonsmasawa@gmail.com
