@@ -56,10 +56,10 @@ This is a web application that allows you to be in the loop about everything hap
 
 ## RESIDENT WALKTHROUGH
 ### As an RESIDENT, you get to:
-- You can add residents to the neighbourhood map.
-- You can add social services to the neighbourhood map.
-- You can send alerts to the residents and delete any malicious post.
-- You can edit neighbourhood details.
+  - You can view residents in the neighbourhood
+  - You can add a business to the neighbourhood map
+  - You can send alerts to other residents
+  - You can get the distance between you and a give place of interest.
 
 ### Login view
 - Login with the details sent to your email
