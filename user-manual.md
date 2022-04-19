@@ -2,6 +2,11 @@
 ## Description
 This is a web application that allows you to be in the loop about everything happening in your neighborhood. You can check businesses around, You can view messages from other residents, You can add a business. You can check for Social services centers around e.g Hospital and many more.
 
+### Basic Map Instructions
+  - Click on a marker to get more details.
+  - Click on the lines to see the distance from your home to a given place in the neighbourhood.
+  - See the Key for more.
+
 ## ADMINISTRATOR WALKTHROUGH
 ### As an administrator, you get to:
 - You can add residents to the neighbourhood map.
