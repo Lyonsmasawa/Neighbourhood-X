@@ -51,7 +51,7 @@ class Member(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    profile_photo = CloudinaryField('image',default='default.jpg', blank=True)
+    profile_photo = CloudinaryField('image',default='v1650350714/image/upload/default_cxaayp.jpg', blank=True)
     name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
     email = models.EmailField()

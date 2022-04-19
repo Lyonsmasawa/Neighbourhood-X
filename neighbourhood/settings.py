@@ -133,6 +133,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME' : config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY' : config('CLOUDINARY_API_KEY'),
+    'API_SECRET' : config('CLOUDINARY_API_SECRET'),
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
