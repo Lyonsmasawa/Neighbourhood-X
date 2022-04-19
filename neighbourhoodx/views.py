@@ -736,7 +736,7 @@ def residentDashboard(request):
             
 
             folium.CircleMarker(
-                [n_lat, n_long],
+                [gh_lat, gh_long],
                 tooltip=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood', 
                 radius = 150,
                 color='blue',
