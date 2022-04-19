@@ -1,5 +1,14 @@
 Hello Administrator {{name}}
 
-With great power comes great responsibility
+With great power comes great responsibility;
+You can add residents to the neighbourhood map(click to get latitude and
+longitude first and add resident's home location accordingly) - The login
+credentials will be
+auto-generated and sent to the added resident
+through the Email entered
+You can add social services to the neighbourhood map
+You can send alerts to the residents
+You can delete any post incase it doesn't meet the set standards
+You can edit or delete the neighbourhood
 
 Account created successfully
