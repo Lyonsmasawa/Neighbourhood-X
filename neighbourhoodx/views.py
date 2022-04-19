@@ -731,7 +731,7 @@ def residentDashboard(request):
                 popup=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood <p>where you belong</p>',
                 tooltip='Click here for more', 
                 icon=folium.Icon(icon='home', color='blue')
-                ).add_to(m)
+                ).add_to(m) 
 
             
 
