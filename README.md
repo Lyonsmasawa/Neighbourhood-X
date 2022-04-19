@@ -7,7 +7,7 @@ This is a web application that allows you to be in the loop about everything hap
 
 # IMPORTANT
 #### PLEASE READ THE MANUAL BEFORE YOU BEGIN and also SHARE it with the residents 
-- Find the user-manual in the files above
+- Find the user-manual here [a link](https://github.com/Lyonsmasawa/Neighbourhood-X/blob/master/user-manual.md)
 
 ## Future Plans
 
