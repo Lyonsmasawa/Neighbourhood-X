@@ -698,7 +698,7 @@ def residentDashboard(request):
                 pointA =(gh_lat, gh_long)
 
                 folium.Marker([gh_lat, gh_long],
-                    popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                    popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>Email: {resident.user.email}/p>',
                     tooltip='Click here for more', 
                     icon=folium.Icon(color='red', icon='pushpin',)
                     ).add_to(m),
@@ -721,14 +721,14 @@ def residentDashboard(request):
                         m.add_child(line)
 
                         folium.Marker([r_lat, r_long],
-                            popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: 0708957380</p>',
+                            popup=f'<p><strong>resident-name: {resident.user.username}</strong></p> <p>contact: {resident.user.email}</p>',
                             tooltip='Click here for more', 
                             icon=folium.Icon(color='blue', icon='user',)
                             ).add_to(m),
 
             #location marker
             folium.Marker([n_lat, n_long],
-                popup=f'<strong>{user.username}</strong> Neighbourhood <p>where you belong</p>',
+                popup=f'<strong>{get_neighbourhood.name}</strong> Neighbourhood <p>where you belong</p>',
                 tooltip='Click here for more', 
                 icon=folium.Icon(icon='home', color='blue')
                 ).add_to(m)
