@@ -13,10 +13,14 @@ This is a web application that allows you to be in the loop about everything hap
 <img src="login.png"> 
 
 ### Administrator Dashboard
+- Get details by Clicking on markers
 <img src="admin.png">
 
 ### Resident Dashboard
 <img src="res.png">
+
+### Get distance by Clicking on the lines
+<img src="resx.png">
 
 ### Profile
 <img src="profile.png">
