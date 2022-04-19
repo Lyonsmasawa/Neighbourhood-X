@@ -2,13 +2,13 @@
 ## Description
 This is a web application that allows you to be in the loop about everything happening in your neighborhood. You can check businesses around, You can view messages from other residents, You can add a business. You can check for Social services centers around e.g Hospital and many more.
 
+## ADMINISTRATOR WALKTHROUGH
 ### As an administrator, you get to:
 - You can add residents to the neighbourhood map.
 - You can add social services to the neighbourhood map.
 - You can send alerts to the residents and delete any malicious post.
 - You can edit neighbourhood details.
 
-## Administrator Manual
 ### Register view
 - Enter your respective details
 - click on Administrator set up and check your email for instructions
@@ -44,6 +44,46 @@ This is a web application that allows you to be in the loop about everything hap
 ### Delete resident
 - Delete Resident by clicking on the times icon in the view residents page
   <img src="peeks/delres.png">
+
+### Send Alert
+- Send an alert by clicking on the alert in the navigation bar
+  <img src="peeks/alert.png">
+
+### Delete Post
+- Delete a Post by clicking on the times icon on the specific post card
+  <img src="peeks/delpost.png">
+
+
+## RESIDENT WALKTHROUGH
+### As an RESIDENT, you get to:
+- You can add residents to the neighbourhood map.
+- You can add social services to the neighbourhood map.
+- You can send alerts to the residents and delete any malicious post.
+- You can edit neighbourhood details.
+
+### Login view
+- Login with the details sent to your email
+<img src="peeks/login.png">
+
+### Resident Dashboard
+- Get details by Clicking on markers
+  <img src="peeks/res.png">
+
+### Add Business
+- click on Add Business in the navigation bar
+  <img src="peeks/addbiz.png">
+
+### View Residents
+- click on view residents in the navigation bar
+  <img src="peeks/ress.png">
+
+### View Profile
+- click on more options then profile in the navigation bar
+  <img src="peeks/profile.png">
+
+### Create Post
+- Send a message by clicking on the Create Post in the navigation bar
+  <img src="peeks/alert.png">
 
 ### Delete Post
 - Delete a Post by clicking on the times icon on the specific post card
