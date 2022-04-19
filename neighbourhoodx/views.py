@@ -683,7 +683,7 @@ def residentDashboard(request):
                 gh_lat = get_home[1] 
 
                 # folium map
-                m = folium.Map(location=[gh_lat, gh_long], zoom_start=11)
+                m = folium.Map(location=[gh_lat, gh_long], zoom_start=12)
                 pointA =(gh_lat, gh_long)
 
                 folium.Marker([gh_lat, gh_long],
