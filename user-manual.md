@@ -47,7 +47,7 @@ This is a web application that allows you to be in the loop about everything hap
 
 ### Send Alert
 - Send an alert by clicking on the alert in the navigation bar
-  <img src="peeks/alert.png">
+  <img src="peeks/apost.png">
 
 ### Delete Post
 - Delete a Post by clicking on the times icon on the specific post card
@@ -85,9 +85,9 @@ This is a web application that allows you to be in the loop about everything hap
 - Send a message by clicking on the Create Post in the navigation bar
   <img src="peeks/alert.png">
 
-### Delete Post
+### Delete Your Post
 - Delete a Post by clicking on the times icon on the specific post card
-  <img src="peeks/delpost.png">
+  <img src="peeks/dpost.png">
 
 ## Author
 - LYONS ALBERT
