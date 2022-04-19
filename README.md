@@ -5,7 +5,6 @@ This is a web application that allows you to be in the loop about everything hap
 
 - * Before you get access to the platform you have to be added to the database by your neighbourhood administrator. *
 
-## ADMINISTRATOR WALKTHROUGH
 # IMPORTANT
 #### PLEASE READ THE MANUAL BEFORE YOU BEGIN and also SHARE it with the residents 
 - Find the user-manual in the files above
