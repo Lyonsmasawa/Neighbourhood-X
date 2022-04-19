@@ -17,11 +17,11 @@ This is a web application that allows you to be in the loop about everything hap
 ### Set Up Neighbourhood
 - Enter neighbourhood Name
 - mark a Location on the map where you want your headquarters to be.
-  <img src="admin.png">
+  <img src="set.png">
 
 ### Administrator Dashboard
 - Get details by Clicking on markers
-  <img src="admin.png">
+  <img src="peek/admin.png">
 
 ### Add Resident
 - click on Add Resident in the navigation bar
@@ -47,8 +47,8 @@ This is a web application that allows you to be in the loop about everything hap
 
 ### Delete Post
 - Delete a Post by clicking on the times icon on the specific post card
-  <img src="delpost.png">
-  
+  <img src="peeks/delpost.png">
+
 ## Author
 - LYONS ALBERT
 - Email: lyonsmasawa@gmail.com
