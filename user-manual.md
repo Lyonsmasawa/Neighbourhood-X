@@ -31,9 +31,9 @@ This is a web application that allows you to be in the loop about everything hap
 ### Add Resident
 - click on Add Resident in the navigation bar
 - The login credentials will be auto-generated and sent to the added resident through the EMAIL entered so ensure it is REAL and the CORRECT email address of the resident.
-- Please add Resident location to map accordingly(click to get latitude and longitude first and add resident's home location accordingly)
+- Please add Resident location to map accordingly(click to get latitude and longitude first and add resident's home location accordingly).
   <img src="peeks/addres.png">
-
+            
 ### Add Social Service
 - click on Add Social Service Center in the navigation bar
   <img src="peeks/addsoc.png">
